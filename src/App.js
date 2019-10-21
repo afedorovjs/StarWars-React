@@ -1,24 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
+import Card from './Card';
+import './reset.css';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="app">
+      
+      <header className="header">
+        <div className="logoWrapper">
+          <div className="logoStar"></div>
+          <p className="logoText">CHARACTER ENCYCLOPEDIA</p>
+          <div className="logoWars"></div>
+        </div>
       </header>
+
+      <form action="" method="" className="form">
+        <input 
+          type="text" 
+          className="input" 
+          placeholder="Search by name"
+        /><button type="submit" className="searchButton" />
+      </form>
+      
+      <main className="cardContainer"> 
+        <Card />
+      </main>
+
+      <footer className="footer">
+        <div className="footerText">
+          <p className="footerText">STAR WARS CHARACTER ENCYCLOPEDIA, 2019</p>
+        </div>
+      </footer>
+
     </div>
   );
 }

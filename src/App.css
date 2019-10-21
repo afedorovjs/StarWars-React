@@ -1,22 +1,196 @@
-.App {
-  text-align: center;
+/* roboto-regular - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../src/fonts/roboto-v20-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Roboto'), local('Roboto-Regular'),
+       url('../src/fonts/roboto-v20-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../src/fonts/roboto-v20-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../src/fonts/roboto-v20-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../src/fonts/roboto-v20-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../src/fonts/roboto-v20-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-500 - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../src/fonts/roboto-v20-latin-500.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Medium'), local('Roboto-Medium'),
+       url('../src/fonts/roboto-v20-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../src/fonts/roboto-v20-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../src/fonts/roboto-v20-latin-500.woff') format('woff'), /* Modern Browsers */
+       url('../src/fonts/roboto-v20-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../src/fonts/roboto-v20-latin-500.svg#Roboto') format('svg'); /* Legacy iOS */
 }
 
-.App-logo {
-  height: 40vmin;
+html {
+  box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+.header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  background-image: url(../src/img/header-background.jpg);
+  height: 35vh;
+  width: 100vw;
 }
 
-.App-link {
-  color: #09d3ac;
+.logoWrapper {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  width: 406px;
+  height: 239px;
+  margin: 0;
+}
+
+.logoStar {
+  height: 96px;
+  background-image: url(../src/img/star.svg);
+}
+
+.logoWars {
+  height: 96px;
+  background-image: url(../src/img/wars.svg);
+}
+
+.logoText {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.11em;
+  font-size: 24px;
+  line-height: 28px;
+  color: #FFFFFF;
+}
+
+body {
+  background: #333333;
+}
+
+.input {
+  width: 600px;
+  height: 40px;
+  border-width: 0 0 1px;
+  border-color: #808080;
+  background: transparent;
+  outline: none;
+  font-size: 18px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1A1A1A;
+  width: 100vw;
+  height: 120px;
+}
+
+.footerText {
+  align-self: center;
+}
+
+p.footerText {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.11em;
+  color: #FFFFFF;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 35px;
+  padding-bottom: 100px;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 570px;
+  height: 320px;
+  background: #1A1A1A;
+  border-radius: 8px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.4));
+  margin: 20px auto;
+  font-weight: bold;
+  font-size: 18px;
+  font-style: normal;
+  color: #FFFFFF;
+}
+
+.card:hover {
+  filter: drop-shadow(0px 10px 25px rgba(37, 136, 167, 0.38));
+  box-shadow: 0px 10px 20px rgba(37, 136, 167, 0.38);
+}
+
+.app {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.avatar {
+  font-family: 'Roboto';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 56px;
+  width: 80px;
+  height: 80px;
+  background: #01A39D;
+  border-radius: 50%;
+}
+
+.avatarName {
+  font-family: 'Roboto';
+  text-align: center;
+  line-height: 21px;
+  font-size: 18px;
+  padding: 10px 0px 9px 0px;
+}
+
+.avatarSpecies {
+  font-family: 'Roboto';
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  color: #808080;
+}
+
+.searchButton {
+  background-image: url(./img/ic_search_24px.svg);
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  
 }
