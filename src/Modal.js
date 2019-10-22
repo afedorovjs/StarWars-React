@@ -3,7 +3,7 @@ import Portal from './Portal';
 
 import './Modal.css';
 
-function Modal({ onClose, name,  }) {
+function Modal({ onClose, name, }) {
 
   return (
         <Portal>

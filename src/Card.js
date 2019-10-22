@@ -2,16 +2,22 @@ import React, { useCallback, useState } from 'react';
 import Modal from './Modal';
 
 
-function Card({ isOpen, openModal, onClose, name, url }) {
+function fetchData(url) {
+  fetch(url)
+      .then(result => result.json())
+      .then(result => this.setModalData(result))
+      .catch(error => error)
+}
+
+function Card({ name, url }) {
   const firstLetter = name.slice(0, 1);
-  
-  // const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const onOpen = useCallback(
     () => {
-      openModal(url);
+      setIsOpen(!isOpen);
     },
-    [openModal, url]
+    [isOpen]
   );
 
   return (
@@ -27,7 +33,7 @@ function Card({ isOpen, openModal, onClose, name, url }) {
       </li>
       { isOpen ? (
           <Modal
-            onClose={onClose}
+
           />
         ) : null
       }

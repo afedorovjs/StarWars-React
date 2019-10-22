@@ -51,11 +51,11 @@ class App extends Component {
     console.log('modalResult:', this.state.modalResult);
   }
 
-  closeModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
-  }
+  // closeModal = () => {
+  //   this.setState({
+  //     isOpen: !this.state.isOpen,
+  //   });
+  // }
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -95,7 +95,7 @@ class App extends Component {
             onChange={this.handleChange}
           /><button type="submit" className="searchButton" />
         </form>
-        
+
         <main className="cardContainer"> 
           <ul className="cardList">
             {results.map(({ name, url }) => 
@@ -103,13 +103,9 @@ class App extends Component {
                 name={name}
                 url={url}
                 key={url}
-                openModal={this.showModal}
-                isOpen={this.state.isOpen}
-                onClose={this.closeModal}
               />
             )}
           </ul>
-          
         </main>
         
         <footer className="footer">
