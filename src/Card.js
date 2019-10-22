@@ -1,36 +1,20 @@
 import React from 'react';
 
-function Card(props) {
+
+function Card({ openModal, name, url }) {
+  const firstLetter = name.slice(0, 1);
+  
   return (
     <>
-    <div className="card">
-      <div className="avatarWrapper">
-        <div className="avatar">N</div>
-        <p className="avatarName">Name</p>
-        <p className="avatarSpecies">Species</p>
-      </div>
-    </div>
-    <div className="card">
-      <div className="avatarWrapper">
-        <div className="avatar">N</div>
-        <p className="avatarName">Name</p>
-        <p className="avatarSpecies">Species</p>
-      </div>
-    </div>
-    <div className="card">
-      <div className="avatarWrapper">
-        <div className="avatar">N</div>
-        <p className="avatarName">Name</p>
-        <p className="avatarSpecies">Species</p>
-      </div>
-    </div>
-    <div className="card">
-      <div className="avatarWrapper">
-        <div className="avatar">N</div>
-        <p className="avatarName">Name</p>
-        <p className="avatarSpecies">Species</p>
-      </div>
-    </div>
+      <li>
+        <div className="card" onClick={ openModal }>
+          <div className="avatarWrapper">
+            <div className="avatar">{ firstLetter }</div>
+            <p className="avatarName">{ name }</p>
+            <p className="avatarSpecies">Species</p>
+          </div>
+        </div>
+      </li>
     </>
   );
 }

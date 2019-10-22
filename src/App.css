@@ -167,6 +167,13 @@ p.footerText {
   border-radius: 50%;
 }
 
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
+}
+
 .avatarName {
   font-family: 'Roboto';
   text-align: center;
@@ -192,5 +199,10 @@ p.footerText {
   background-color: transparent;
   border: none;
   outline: none;
-  
+}
+
+.cardList {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
