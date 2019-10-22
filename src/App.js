@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Card from './Card';
-import Modal from './Modal';
 import './reset.css';
 import './App.css';
 
@@ -106,15 +105,9 @@ class App extends Component {
                 key={url}
                 openModal={this.showModal}
                 isOpen={this.state.isOpen}
+                onClose={this.closeModal}
               />
             )}
-            { this.state.isOpen ? (
-                <Modal
-                  onClose={this.closeModal}
-                  name={this.state.modalResult.name}
-                />
-              ) : null
-            }
           </ul>
           
         </main>

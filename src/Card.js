@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
+import Modal from './Modal';
 
-function Card({ openModal, name, url }) {
+
+function Card({ isOpen, openModal, onClose, name, url }) {
   const firstLetter = name.slice(0, 1);
   
   // const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +25,12 @@ function Card({ openModal, name, url }) {
           </div>
         </div>
       </li>
+      { isOpen ? (
+          <Modal
+            onClose={onClose}
+          />
+        ) : null
+      }
     </>
   );
 }

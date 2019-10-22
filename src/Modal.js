@@ -12,7 +12,7 @@ function Modal({ onClose, name,  }) {
                 <button className="modalCloseBtn" onClick={onClose}/>
                 <div className="modalHeader">
                   <div className="modalAvatar">N</div>
-                  <p>{name}</p>
+                  <p>name</p>
                 </div>
                 <div className="modalBody">
                   <div className="threeWrapper">
