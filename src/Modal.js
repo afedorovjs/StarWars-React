@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Portal from './Portal';
 
 import './Modal.css';
 
-function Modal({ onCancel }) {
+function Modal({ onClose, name,  }) {
+
   return (
         <Portal>
             <div className="modalWrapper">
               <div className="modalWindow">
-                <button className="modalCloseBtn" onClick={onCancel}/>
+                <button className="modalCloseBtn" onClick={onClose}/>
                 <div className="modalHeader">
                   <div className="modalAvatar">N</div>
-                  <p>Name</p>
+                  <p>{name}</p>
                 </div>
                 <div className="modalBody">
                   <div className="threeWrapper">

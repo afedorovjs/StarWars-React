@@ -14,6 +14,7 @@ class App extends Component {
     this.state = {
       searchQuery: '',
       result: {},
+      modalResult: {},
       isOpen: false,
     };
   }
@@ -30,11 +31,28 @@ class App extends Component {
       .catch(error => error)
   }
 
-  setData = result => {
+  setData = (result) => {
     this.setState({ result })
   }
 
-  showModal = () => {
+  setModalData = (modalResult) => {
+    this.setState({ modalResult })
+  }
+
+  showModal = (currentUrl) => {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+    
+    fetch(currentUrl)
+      .then(result => result.json())
+      .then(result => this.setModalData(result))
+      .catch(error => error)
+    
+    console.log('modalResult:', this.state.modalResult);
+  }
+
+  closeModal = () => {
     this.setState({
       isOpen: !this.state.isOpen,
     });
@@ -90,13 +108,15 @@ class App extends Component {
                 isOpen={this.state.isOpen}
               />
             )}
+            { this.state.isOpen ? (
+                <Modal
+                  onClose={this.closeModal}
+                  name={this.state.modalResult.name}
+                />
+              ) : null
+            }
           </ul>
-          { this.state.isOpen ? (
-              <Modal
-                onCancel={this.showModal}
-              />
-            ) : null
-          }
+          
         </main>
         
         <footer className="footer">
