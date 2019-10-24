@@ -33,6 +33,15 @@ html {
   box-sizing: inherit;
 }
 
+body {
+  background: #333333;
+}
+
+.app {
+  display: flex;
+  flex-flow: column wrap;
+}
+
 .header {
   display: flex;
   justify-content: center;
@@ -72,10 +81,6 @@ html {
   color: #FFFFFF;
 }
 
-body {
-  background: #333333;
-}
-
 .input {
   width: 600px;
   height: 40px;
@@ -86,6 +91,10 @@ body {
   font-size: 18px;
 }
 
+.input:enabled {
+  color: white;
+}
+
 .footer {
   display: flex;
   justify-content: center;
@@ -93,6 +102,7 @@ body {
   background: #1A1A1A;
   width: 100vw;
   height: 120px;
+  margin-top: 100px;
 }
 
 .footerText {
@@ -111,13 +121,12 @@ p.footerText {
 
 .cardContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   padding-left: 40px;
   padding-right: 40px;
-  padding-top: 35px;
-  padding-bottom: 100px;
+  
 }
 
 .card {
@@ -143,15 +152,8 @@ p.footerText {
   cursor: pointer;
 }
 
-.app {
-  display: flex;
-  flex-flow: column wrap;
-}
-
 .form {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
+  margin: 50px 0px 30px 0px;
 }
 
 .avatar {

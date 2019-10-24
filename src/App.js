@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Card from './Card';
+import CardList from './CardList';
+import Preloader from './Preloader/Preloader';
 import './reset.css';
 import './App.css';
 
@@ -13,8 +14,7 @@ class App extends Component {
     this.state = {
       searchQuery: '',
       result: {},
-      modalResult: {},
-      isOpen: false,
+      isLoading: true,
     };
   }
 
@@ -26,36 +26,17 @@ class App extends Component {
   fetchData = (searchQuery) => {
     fetch(`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${searchQuery}`)
       .then(res => res.json())
-      .then(result => this.setData(result))
-      .catch(error => error)
+      .then(result => {
+        this.setResult(result);
+        setTimeout(() => {
+          this.setState({isLoading: false})
+        }, 2000);
+      })
   }
 
-  setData = (result) => {
+  setResult = (result) => {
     this.setState({ result })
   }
-
-  setModalData = (modalResult) => {
-    this.setState({ modalResult })
-  }
-
-  showModal = (currentUrl) => {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
-    
-    fetch(currentUrl)
-      .then(result => result.json())
-      .then(result => this.setModalData(result))
-      .catch(error => error)
-    
-    console.log('modalResult:', this.state.modalResult);
-  }
-
-  // closeModal = () => {
-  //   this.setState({
-  //     isOpen: !this.state.isOpen,
-  //   });
-  // }
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -73,7 +54,6 @@ class App extends Component {
 
     return (
       <div className="app">
-        
         <header className="header">
           <div className="logoWrapper">
             <div className="logoStar"></div>
@@ -82,30 +62,14 @@ class App extends Component {
           </div>
         </header>
 
-        <form
-          method="GET" 
-          className="form" 
-          onSubmit={this.handleSubmit}
-        >
-          <input
-            type="text" 
-            value={searchQuery}
-            className="input" 
-            placeholder="Search by name"
-            onChange={this.handleChange}
-          /><button type="submit" className="searchButton" />
-        </form>
-
         <main className="cardContainer"> 
-          <ul className="cardList">
-            {results.map(({ name, url }) => 
-              <Card
-                name={name}
-                url={url}
-                key={url}
-              />
-            )}
-          </ul>
+          {this.state.isLoading ?
+          <Preloader/> : <CardList
+            results={results}
+            searchQuery={searchQuery}
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+          />}
         </main>
         
         <footer className="footer">

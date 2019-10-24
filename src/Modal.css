@@ -5,7 +5,7 @@
   transform: translate(-50%, -50%);
   width: 800px;
   max-width: 100%;
-  height: 492px;
+  height: 530px;
   max-height: 100%;
   background: #1A1A1A;
   border-radius: 8px;
@@ -76,6 +76,10 @@
   border: none;
 }
 
+.modalCloseBtn:hover {
+  cursor: pointer;
+}
+
 .titlesWrapper {
   display: inline-flex;
   justify-content: baseline;
@@ -122,6 +126,8 @@
   background-color: transparent;
   width: 24px;
   height: 24px;
+  align-self: flex-start;
+  margin-top: 10px;
 }
 
 .threeWrapper {
@@ -130,10 +136,48 @@
 }
 
 .titleValue {
-  margin-left: 24px;
   font-family: 'Roboto';
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
+  margin-left: 24px;
+}
+
+.titleList {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  margin-left: 73px;
+  display: flex;
+  justify-content: baseline;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.titleSpecies {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  margin-left: 38px;
+}
+
+.titleGender {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  margin-left: 43px;
+}
+
+.titlesFilms {
+  margin: 10px 0px;
+  margin-left: 11px;
+  color: #808080;
+  align-self: flex-start;
 }
