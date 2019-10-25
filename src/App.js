@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CardList from './CardList';
-import Preloader from './Preloader/Preloader';
+// import Preloader from './Preloader/Preloader';
+import StarWarsPreloader from './StarWarsPreloader';
 import './reset.css';
 import './App.css';
 
@@ -64,7 +65,7 @@ class App extends Component {
 
         <main className="cardContainer"> 
           {this.state.isLoading ?
-          <Preloader/> : <CardList
+          <StarWarsPreloader/> : <CardList
             results={results}
             searchQuery={searchQuery}
             handleSubmit={this.handleSubmit}

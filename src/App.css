@@ -49,6 +49,7 @@ body {
   background-image: url(../src/img/header-background.jpg);
   height: 35vh;
   width: 100vw;
+  background-size: cover;
 }
 
 .logoWrapper {
@@ -202,6 +203,10 @@ p.footerText {
   background-color: transparent;
   border: none;
   outline: none;
+}
+
+.searchButton:hover {
+  cursor: pointer;
 }
 
 .cardList {
