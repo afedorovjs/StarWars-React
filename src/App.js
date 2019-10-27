@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Card from './Card';
-import Modal from './Modal';
+import CardList from './CardList';
+import StarWarsPreloader from './StarWarsPreloader';
+
 import './reset.css';
 import './App.css';
 
@@ -14,54 +15,76 @@ class App extends Component {
     this.state = {
       searchQuery: '',
       result: {},
-      modalResult: {},
-      isOpen: false,
+      results: [],
+      isLoading: true,
+      nextHref: null,
+      hasMoreItems: true,
     };
   }
 
   componentDidMount() {
-    const { searchQuery } = this.state;
-    this.fetchData(searchQuery);
-  }
-
-  fetchData = (searchQuery) => {
-    fetch(`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${searchQuery}`)
-      .then(res => res.json())
-      .then(result => this.setData(result))
-      .catch(error => error)
-  }
-
-  setData = (result) => {
-    this.setState({ result })
-  }
-
-  setModalData = (modalResult) => {
-    this.setState({ modalResult })
-  }
-
-  showModal = (currentUrl) => {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
+    this.loadItems();
     
-    fetch(currentUrl)
-      .then(result => result.json())
-      .then(result => this.setModalData(result))
-      .catch(error => error)
-    
-    console.log('modalResult:', this.state.modalResult);
+    setTimeout(() => {
+      this.setState({
+        isLoading: false,
+      })
+    }, 2000);
   }
 
-  closeModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
+  loadItems = (nextHref) => {
+    let url = (`${BASE_PATH}${PEOPLE_PATH}`);
+
+    if(this.state.nextHref) {
+      url = this.state.nextHref;
+    }
+
+    if(nextHref === null) {
+      url = (`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${this.state.searchQuery}`)
+
+      this.setState({
+        nextHref: nextHref,
+        hasMoreItems: true,
+      })
+    }
+
+    fetch(url).then(res => res.json())
+      .then((resp) => {
+          const results = this.state.results;
+
+          resp.results.map((person) => {
+            results.push(person);
+          });
+
+          if(resp.next) {
+            this.setState({
+              results: results,
+              nextHref: resp.next,
+            });
+          } else {
+            this.setState({
+              hasMoreItems: false,
+            });
+          }
+        }
+    );
+
+    setTimeout(() => {
+      this.setState({
+        isLoading: false,
+      })
+    }, 2000);
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { searchQuery } = this.state;
-    this.fetchData(searchQuery);
+    const nextHref = null;
+
+    this.setState({
+      isLoading: true,
+      results: [],
+    });
+    this.loadItems(nextHref);
   }
 
   handleChange = (event) => {
@@ -69,12 +92,8 @@ class App extends Component {
   }
 
   render() {
-    const { searchQuery, result } = this.state;
-    const { results = [] } = result;
-
     return (
       <div className="app">
-        
         <header className="header">
           <div className="logoWrapper">
             <div className="logoStar"></div>
@@ -83,40 +102,17 @@ class App extends Component {
           </div>
         </header>
 
-        <form
-          method="GET" 
-          className="form" 
-          onSubmit={this.handleSubmit}
-        >
-          <input
-            type="text" 
-            value={searchQuery}
-            className="input" 
-            placeholder="Search by name"
-            onChange={this.handleChange}
-          /><button type="submit" className="searchButton" />
-        </form>
-        
         <main className="cardContainer"> 
-          <ul className="cardList">
-            {results.map(({ name, url }) => 
-              <Card
-                name={name}
-                url={url}
-                key={url}
-                openModal={this.showModal}
-                isOpen={this.state.isOpen}
-              />
-            )}
-            { this.state.isOpen ? (
-                <Modal
-                  onClose={this.closeModal}
-                  name={this.state.modalResult.name}
-                />
-              ) : null
-            }
-          </ul>
-          
+          {this.state.isLoading ?
+          <StarWarsPreloader/> : <CardList
+            results={this.state.results}
+            searchQuery={this.state.searchQuery}
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+            fetchDataApp={this.fetchData}
+            loadItems={this.loadItems}
+            hasMore={this.state.hasMoreItems}
+          />}
         </main>
         
         <footer className="footer">

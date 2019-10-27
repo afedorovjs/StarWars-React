@@ -5,7 +5,7 @@
   transform: translate(-50%, -50%);
   width: 800px;
   max-width: 100%;
-  height: 492px;
+  height: 530px;
   max-height: 100%;
   background: #1A1A1A;
   border-radius: 8px;
@@ -76,11 +76,19 @@
   border: none;
 }
 
+.modalCloseBtn:hover {
+  cursor: pointer;
+}
+
 .titlesWrapper {
   display: inline-flex;
-  justify-content: baseline;
   flex-direction: row;
   align-items: center;
+}
+
+.filmsWrapper {
+  display: flex;
+  flex-flow: column wrap;
 }
 
 .titles {
@@ -122,6 +130,8 @@
   background-color: transparent;
   width: 24px;
   height: 24px;
+  align-self: flex-start;
+  margin-top: 10px;
 }
 
 .threeWrapper {
@@ -129,11 +139,185 @@
   flex-flow: column wrap;
 }
 
-.titleValue {
-  margin-left: 24px;
+.titleBirth {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
+  margin-left: 24px;
+}
+
+.titleList {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  margin-left: 93px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: baseline;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.titleList span {
+  margin-bottom: 2px;
+}
+
+.titleSpecies {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  margin-left: 38px;
+}
+
+.titleGender {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  margin-left: 43px;
+}
+
+.titleHomeworld {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  margin-left: 43px;
+}
+
+.titleFilms {
+  margin: 10px 0px 0px 11px;
+  color: #808080;
+  align-self: flex-start;
+}
+
+.fadeIn {
+  animation: fadeIn 2s;
+}
+
+.fadeOut {
+  animation: fadeOut 2s;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .modalWrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    filter: none;
+  }
+
+  .modalWindow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+  }
+
+  .modalHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    color: white;
+    height: 130px;
+    width: 272px;
+    border-bottom: 2px solid #808080;
+    margin-bottom: 45px;
+  }
+
+  .modalBody {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: column;
+    height: 400px;
+    width: 272px;
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  .titles {
+    margin-left: 8px;
+  }
+
+  .titleList {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 63px;
+  }
+
+  .titleList span {
+    margin-bottom: 5px;
+  }
+
+  .titleBirth {
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 36px;
+  }
+
+  .titleSpecies {
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 48px;
+  }
+
+  .titleGender {
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 53px;
+  }
+
+  .titleHomeworld {
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 22px;
+  }
+
+  .titleFilms {
+    margin-left: 13px;
+  }
+
+  .iconFilms {
+    padding-right: 16px;
+  }
+
+  
 }
