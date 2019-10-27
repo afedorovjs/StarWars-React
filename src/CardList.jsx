@@ -1,24 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import StarWarsPreloader from './StarWarsPreloader';
+// import StarWarsPreloader from './StarWarsPreloader';
 import Card from './Card';
 
 function CardList({
-  results, searchQuery, handleSubmit, handleChange, loadMore, hasMore,
+  results, searchQuery, handleSubmit, handleChange, loadItems, hasMore,
 }) {
-  const loader = <StarWarsPreloader />;
-  // const items = [];
-
-  // results.map((name) => {
-  //   items.push(
-  //     <Card
-  //       name={name}
-
-  //       key={name}
-  //     />,
-  //   );
-  // });
+  // const loader = <StarWarsPreloader />;
 
   return (
     <>
@@ -39,7 +28,7 @@ function CardList({
       <ul className="cardList">
         <InfiniteScroll
           pageStart={0}
-          loadMore={loadMore}
+          loadMore={loadItems}
           hasMore={hasMore}
         >
           {results.map(({ name, url }) => (

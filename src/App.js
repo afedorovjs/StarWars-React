@@ -20,12 +20,11 @@ class App extends Component {
       nextHref: null,
       hasMoreItems: true,
     };
-    this.loadItems = this.loadItems.bind(this);
   }
 
   componentDidMount() {
-    const { searchQuery } = this.state;
-    // this.fetchData(searchQuery);
+    this.loadItems();
+    
     setTimeout(() => {
       this.setState({
         isLoading: false,
@@ -33,33 +32,19 @@ class App extends Component {
     }, 2000);
   }
 
-  loadItems(page) {
-    const self = this;
+  loadItems = () => {
     let url = (`${BASE_PATH}${PEOPLE_PATH}`);
 
     if(this.state.nextHref) {
         url = this.state.nextHref;
     }
 
-    if(this.state.searchQuery !== '') {
+    if(this.state.searchQuery && (this.state.nextHref === null)) {
       url = (`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${this.state.searchQuery}`)
-
-      // this.setState({
-      //   results: [],
-      // });
-
-      // console.log('results', this.state.results);
     }
-
+    
     fetch(url).then(res => res.json())
       .then((resp) => {
-        if(resp) {
-          if(this.state.searchQuery !== '') {
-            this.setState({
-              results: [],
-            });
-          }
-          console.log('results', this.state.results);
           const results = this.state.results;
 
           resp.results.map((person) => {
@@ -67,57 +52,35 @@ class App extends Component {
           });
 
           if(resp.next) {
-            self.setState({
+            this.setState({
               results: results,
               nextHref: resp.next,
             });
           } else {
-            self.setState({
+            this.setState({
               hasMoreItems: false,
             });
           }
         }
-    });
+    );
 
     setTimeout(() => {
       this.setState({
         isLoading: false,
       })
     }, 2000);
-}
-
-  fetchData = (searchQuery) => {
-    fetch(`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${searchQuery}`)
-      .then(res => res.json())
-      .then(result => {
-        const results = this.state.results;
-
-        result.results.map((person) => {
-          results.push(person);
-        });
-
-        this.setResult(results);
-        setTimeout(() => {
-          this.setState({
-            isLoading: false,
-          })
-        }, 2000);
-      })
-  }
-
-  setResult = (results) => {
-    this.setState({
-      results
-    })
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { searchQuery } = this.state;
+
     this.setState({
       isLoading: true,
+      results: [],
+      nextHref: null,
     });
-    this.fetchData(searchQuery);
+
+    this.loadItems();
   }
 
   handleChange = (event) => {
@@ -125,9 +88,6 @@ class App extends Component {
   }
 
   render() {
-    const { searchQuery, result } = this.state;
-    const { results = [] } = result;
-
     return (
       <div className="app">
         <header className="header">
@@ -142,11 +102,11 @@ class App extends Component {
           {this.state.isLoading ?
           <StarWarsPreloader/> : <CardList
             results={this.state.results}
-            searchQuery={searchQuery}
+            searchQuery={this.state.searchQuery}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
             fetchDataApp={this.fetchData}
-            loadMore={this.loadItems}
+            loadItems={this.loadItems}
             hasMore={this.state.hasMoreItems}
           />}
         </main>
