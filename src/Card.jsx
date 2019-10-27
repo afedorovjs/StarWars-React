@@ -1,18 +1,17 @@
+/* eslint-disable import/no-named-as-default-member */
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable react/prop-types */
 import React, { useCallback, useState } from 'react';
 import Modal from './Modal';
 
 function fetchData(url) {
-  return fetch(url).then(result => result.json());
+  return fetch(url).then((result) => result.json());
 }
 
 function Card({ name, url }) {
   const firstLetter = name[0];
   const [isOpen, setIsOpen] = useState(false);
   const [fetchResponse, setFetchResponse] = useState(null);
-  // const [homeworld, setHomeworld] = useState(null);
-  // const [species, setSpecies] = useState(null);
-  // const [films, setFilms] = useState(null);
-  // const filmsArray = [];
 
   const openModal = useCallback(() => {
     setIsOpen(true);
@@ -20,10 +19,10 @@ function Card({ name, url }) {
       fetchData(url).then(
         (resp) => {
           setFetchResponse(resp);
-        }
+        },
       );
     }
-  }, [setFetchResponse, fetchResponse, url, ]);
+  }, [setFetchResponse, fetchResponse, url]);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
@@ -35,7 +34,7 @@ function Card({ name, url }) {
   return (
     <>
       <li>
-        <div className="card" onClick={ openModal }>
+        <div className="card fadeIn" onClick={openModal}>
           <div className="avatarWrapper">
             <div className="avatar">{ firstLetter }</div>
             <p className="avatarName">{ name }</p>
@@ -48,6 +47,7 @@ function Card({ name, url }) {
           fetchResponse={fetchResponse}
           onClose={closeModal}
           fetchData={fetchData}
+          isOpen={isOpen}
         />
       )}
     </>

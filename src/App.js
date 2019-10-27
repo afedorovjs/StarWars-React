@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CardList from './CardList';
-// import Preloader from './Preloader/Preloader';
 import StarWarsPreloader from './StarWarsPreloader';
 import './reset.css';
 import './App.css';
@@ -42,6 +41,7 @@ class App extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { searchQuery } = this.state;
+    this.setState({isLoading: true});
     this.fetchData(searchQuery);
   }
 

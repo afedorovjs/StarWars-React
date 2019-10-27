@@ -107,10 +107,6 @@ body {
 }
 
 .footerText {
-  align-self: center;
-}
-
-p.footerText {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: bold;
@@ -120,14 +116,22 @@ p.footerText {
   color: #FFFFFF;
 }
 
+/* p.footerText {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.11em;
+  color: #FFFFFF;
+} */
+
 .cardContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding-left: 40px;
-  padding-right: 40px;
-  
+  padding: 0 40px;
 }
 
 .card {
@@ -213,4 +217,104 @@ p.footerText {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+}
+
+
+.fadeIn {
+  animation: fadeIn 2s;
+}
+
+.fadeOut {
+  animation: fadeOut 2s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    width: 100%;
+    height: 240px;
+  }
+
+  .logoWrapper {
+    width: 212px;
+    height: 125px;
+  }
+
+  .logoStar {
+    height: 50px;
+    background-size: cover;
+  }
+
+  .logoWars {
+    height: 50px;
+    background-size: cover;
+  }
+
+  .logoText {
+    font-size: 9px;
+    line-height: 9px;
+    margin-top: 2px;
+  }
+
+  .form {
+    width: 272px;
+  }
+
+  .input {
+    width: 252px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  .searchButton {
+    width: 19px;
+    height: 19px;
+    background-size: cover;
+  }
+
+  .cardContainer {
+    padding: 0 20px;
+  }
+
+  .card {
+    width: 272px;
+    height: 200px;
+    margin: 20px auto;
+  }
+
+  .footer {
+    width: 100vw;
+    height: 104px;
+    margin-top: 100px;
+  }
+
+  .footerText {
+    width: 199px;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+  }
+
+  
+
 }

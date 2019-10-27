@@ -38,3 +38,27 @@
     transform:  rotate(0deg) translateX(50px) rotate(360deg);;
   }
 }
+
+.fadeIn {
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .preloaderWrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    filter: none;
+  }
+}

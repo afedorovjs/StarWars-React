@@ -3,6 +3,8 @@ import Portal from './Portal';
 import ModalStarWarsPreloader from './ModalStarWarsPreloader';
 import './Modal.css';
 
+
+
 class Modal extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,11 @@ class Modal extends Component {
       homeworld: null,
       species: null,
       films: null,
+      isOpen: props.isOpen,
+      styles: 'modalWrapper',
     }
+    
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -57,18 +63,25 @@ class Modal extends Component {
 
       setTimeout(() => {
         this.setState({isLoading: false})
-      }, 4000);
+      }, 2000);
   }
 
+  closeModal() {
+    this.setState({
+      styles: 'modalWrapper fadeOut'
+    })
+    setTimeout(() => this.state.onClose(), 2000);
+  }
+  
   render() {
     return (
       <>
         <Portal>
         {this.state.isLoading ?
           <ModalStarWarsPreloader/> : (
-          <div className="modalWrapper">
+          <div className={this.state.styles}>
             <div className="modalWindow">
-              <button className="modalCloseBtn" onClick={ this.state.onClose }/>
+              <button className="modalCloseBtn" onClick={ this.closeModal }/>
               <div className="modalHeader">
                 <div className="modalAvatar">{ this.state.data.name[0] }</div>
                 <p>{ this.state.data.name }</p>
@@ -78,7 +91,7 @@ class Modal extends Component {
                   <div className="titlesWrapper">
                     <span className="iconDOB"/>
                     <span className="titles">Birth year</span>
-                    <span className="titleValue">{ this.state.data.birth_year }</span>
+                    <span className="titleBirth">{ this.state.data.birth_year }</span>
                   </div>
                   <div className="titlesWrapper">
                     <span className="iconSpecies"/>
@@ -91,15 +104,15 @@ class Modal extends Component {
                     <span className="titleGender">{ this.state.data.gender }</span>
                   </div>
                 </div>
-                <div className="threeWrapper">
+                <div className="filmsWrapper">
                   <div className="titlesWrapper">
                     <span className="iconHomeworld"/>
                     <span className="titles">Homeworld</span>
-                    <span className="titleValue">{ this.state.homeworld }</span>
+                    <span className="titleHomeworld">{ this.state.homeworld }</span>
                   </div>
                   <div className="titlesWrapper">
                     <span className="iconFilms"/>
-                    <span className="titlesFilms">Films</span>
+                    <span className="titleFilms">Films</span>
                     <div className="titleList">{this.state.films.map((film) => {return <span>{ film }</span>})}</div>
                   </div>
                 </div>
