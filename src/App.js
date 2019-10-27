@@ -32,17 +32,22 @@ class App extends Component {
     }, 2000);
   }
 
-  loadItems = () => {
+  loadItems = (nextHref) => {
     let url = (`${BASE_PATH}${PEOPLE_PATH}`);
 
     if(this.state.nextHref) {
-        url = this.state.nextHref;
+      url = this.state.nextHref;
     }
 
-    if(this.state.searchQuery && (this.state.nextHref === null)) {
+    if(nextHref === null) {
       url = (`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${this.state.searchQuery}`)
+
+      this.setState({
+        nextHref: nextHref,
+        hasMoreItems: true,
+      })
     }
-    
+
     fetch(url).then(res => res.json())
       .then((resp) => {
           const results = this.state.results;
@@ -73,14 +78,13 @@ class App extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const nextHref = null;
 
     this.setState({
       isLoading: true,
       results: [],
-      nextHref: null,
     });
-
-    this.loadItems();
+    this.loadItems(nextHref);
   }
 
   handleChange = (event) => {
