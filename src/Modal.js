@@ -70,7 +70,7 @@ class Modal extends Component {
     this.setState({
       styles: 'modalWrapper fadeOut'
     })
-    setTimeout(() => this.state.onClose(), 2000);
+    setTimeout(() => this.state.onClose(), 1500);
   }
   
   render() {

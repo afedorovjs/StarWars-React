@@ -134,6 +134,12 @@ body {
   padding: 0 40px;
 }
 
+ul.cardList > div {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
 .card {
   display: flex;
   justify-content: center;
@@ -212,13 +218,6 @@ body {
 .searchButton:hover {
   cursor: pointer;
 }
-
-.cardList {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-}
-
 
 .fadeIn {
   animation: fadeIn 2s;

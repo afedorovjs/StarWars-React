@@ -1,10 +1,25 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
+import StarWarsPreloader from './StarWarsPreloader';
 import Card from './Card';
 
 function CardList({
-  results, searchQuery, handleSubmit, handleChange,
+  results, searchQuery, handleSubmit, handleChange, loadMore, hasMore,
 }) {
+  const loader = <StarWarsPreloader />;
+  // const items = [];
+
+  // results.map((name) => {
+  //   items.push(
+  //     <Card
+  //       name={name}
+
+  //       key={name}
+  //     />,
+  //   );
+  // });
+
   return (
     <>
       <form
@@ -22,13 +37,19 @@ function CardList({
         <button type="submit" className="searchButton" />
       </form>
       <ul className="cardList">
-        {results.map(({ name, url }) => (
-          <Card
-            name={name}
-            url={url}
-            key={url}
-          />
-        ))}
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={loadMore}
+          hasMore={hasMore}
+        >
+          {results.map(({ name, url }) => (
+            <Card
+              name={name}
+              url={url}
+              key={name}
+            />
+          ))}
+        </InfiniteScroll>
       </ul>
     </>
   );
