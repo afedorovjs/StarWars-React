@@ -5,7 +5,7 @@ import falcon from './img/falcon.svg';
 export default function StarWarsPreloader() {
   return (
     <div className="preloader fadeIn">
-      <img src={falcon} className="lds-ring" alt="fireSpot" />
+      <img src={falcon} className="falconPreloader" alt="fireSpot" />
     </div>
   );
 }

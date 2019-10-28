@@ -5,7 +5,7 @@ import falcon from './img/falcon.svg';
 export default function ModalStarWarsPreloader() {
   return (
     <div className="preloaderWrapper fadeIn">
-      <img src={falcon} className="lds-ring" alt="falcon" />
+      <img src={falcon} className="falconPreloader" alt="falcon" />
     </div>
   );
 }

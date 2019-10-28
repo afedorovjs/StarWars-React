@@ -3,8 +3,6 @@ import Portal from './Portal';
 import ModalStarWarsPreloader from './ModalStarWarsPreloader';
 import './Modal.css';
 
-
-
 class Modal extends Component {
   constructor(props) {
     super(props);
@@ -16,10 +14,8 @@ class Modal extends Component {
       species: null,
       films: null,
       isOpen: props.isOpen,
-      styles: 'modalWrapper',
+      styles: 'modalWrapper fadeIn',
     }
-    
-    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -66,11 +62,11 @@ class Modal extends Component {
       }, 2000);
   }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({
       styles: 'modalWrapper fadeOut'
     })
-    setTimeout(() => this.state.onClose(), 1500);
+    setTimeout(() => this.state.onClose(), 300);
   }
   
   render() {
@@ -113,7 +109,7 @@ class Modal extends Component {
                   <div className="titlesWrapper">
                     <span className="iconFilms"/>
                     <span className="titleFilms">Films</span>
-                    <div className="titleList">{this.state.films.map((film) => {return <span>{ film }</span>})}</div>
+                    <div className="titleList">{this.state.films.map((film, i) => {return <span key={i}>{ film }</span>})}</div>
                   </div>
                 </div>
               </div>

@@ -14,7 +14,6 @@ class App extends Component {
     super(props);
     this.state = {
       searchQuery: '',
-      result: {},
       results: [],
       isLoading: true,
       nextHref: null,
@@ -52,9 +51,7 @@ class App extends Component {
       .then((resp) => {
           const results = this.state.results;
 
-          resp.results.map((person) => {
-            results.push(person);
-          });
+          resp.results.map((person) => results.push(person));
 
           if(resp.next) {
             this.setState({
@@ -92,8 +89,10 @@ class App extends Component {
   }
 
   render() {
+    const appElement = document.getElementById('app');
+
     return (
-      <div className="app">
+      <div id="app" className="app">
         <header className="header">
           <div className="logoWrapper">
             <div className="logoStar"></div>
@@ -109,9 +108,9 @@ class App extends Component {
             searchQuery={this.state.searchQuery}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
-            fetchDataApp={this.fetchData}
             loadItems={this.loadItems}
             hasMore={this.state.hasMoreItems}
+            appElement={appElement}
           />}
         </main>
         

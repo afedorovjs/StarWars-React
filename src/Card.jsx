@@ -8,13 +8,14 @@ function fetchData(url) {
   return fetch(url).then((result) => result.json());
 }
 
-function Card({ name, url }) {
+function Card({ name, url, appElement }) {
   const firstLetter = name[0];
   const [isOpen, setIsOpen] = useState(false);
   const [fetchResponse, setFetchResponse] = useState(null);
 
   const openModal = useCallback(() => {
     setIsOpen(true);
+    appElement.classList.add('blur');
     if (fetchResponse === null) {
       fetchData(url).then(
         (resp) => {
@@ -22,11 +23,14 @@ function Card({ name, url }) {
         },
       );
     }
-  }, [setFetchResponse, fetchResponse, url]);
+  }, [setFetchResponse, fetchResponse, url, appElement]);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
-  }, [setIsOpen]);
+    appElement.classList.remove('blur');
+    appElement.classList.add('blurOut');
+    setTimeout(() => appElement.classList.remove('blurOut'), 2100);
+  }, [setIsOpen, appElement]);
 
   const needRenderModal = (
     (fetchResponse !== null) && isOpen

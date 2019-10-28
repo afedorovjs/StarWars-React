@@ -1,14 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-// import StarWarsPreloader from './StarWarsPreloader';
 import Card from './Card';
 
 function CardList({
-  results, searchQuery, handleSubmit, handleChange, loadItems, hasMore,
+  results, searchQuery, handleSubmit, handleChange, loadItems, hasMore, appElement
 }) {
-  // const loader = <StarWarsPreloader />;
-
   return (
     <>
       <form
@@ -36,6 +33,7 @@ function CardList({
               name={name}
               url={url}
               key={name}
+              appElement={appElement}
             />
           ))}
         </InfiniteScroll>
