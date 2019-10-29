@@ -23,11 +23,21 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.loadItems();
+    this.loadMore();
   }
+
+  loadMore = () => {
+    if(!this.state.isLoadingItems) {
+        this.loadItems();
+    }
+}
 
   loadItems = (nextHref) => {
     let url = (`${BASE_PATH}${PEOPLE_PATH}`);
+
+    this.setState({
+      isLoadingItems: true,
+    })
 
     if(this.state.nextHref) {
       url = this.state.nextHref;
@@ -42,19 +52,14 @@ class App extends Component {
       })
     }
 
-    fetch(url).then((resp) => {
-      console.log('status',resp.status);
-      console.log('statusText', resp.ok);
-      return resp.json()
-    })
+    fetch(url).then((resp) => resp.json())
       .then((resp) => {
           const { results } = this.state;
-          
-          resp.results.forEach((person) => results.push(person));
+          const newResults = [...results, ...resp.results];
 
           if(resp.next) {
             this.setState({
-              results: results,
+              results: newResults,
               nextHref: resp.next,
             });
           } else {
@@ -66,8 +71,14 @@ class App extends Component {
           setTimeout(() => {
             this.setState({
               isLoading: false,
-            })
+            });
           }, 2000)
+
+          setTimeout(() => {
+            this.setState({
+              isLoadingItems: false,
+            });
+          }, 100)
         }
       );
   }
@@ -93,7 +104,7 @@ class App extends Component {
     return (
       <div id="app" className="app">
         <header className="header">
-          <div className="logoWrapper">
+          <div className="logoWrapper" onClick={() => window.location.reload()}>
             <div className="logoStar"></div>
             <p className="logoText">CHARACTER ENCYCLOPEDIA</p>
             <div className="logoWars"></div>
@@ -107,7 +118,7 @@ class App extends Component {
             searchQuery={this.state.searchQuery}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
-            loadMore={this.loadItems}
+            loadMore={this.loadMore}
             hasMore={this.state.hasMoreItems}
             appElement={appElement}
           />}

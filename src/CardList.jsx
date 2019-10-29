@@ -6,6 +6,10 @@ import Card from './Card';
 function CardList({
   results, searchQuery, handleSubmit, handleChange, loadMore, hasMore, appElement,
 }) {
+  const needShowCard = (
+    results.length !== 0
+  );
+
   return (
     <>
       <form
@@ -29,14 +33,16 @@ function CardList({
           hasMore={hasMore}
           initialLoad={false}
         >
-          {results.map(({ name, url }) => (
-            <Card
-              name={name}
-              url={url}
-              key={name}
-              appElement={appElement}
-            />
-          ))}
+          {needShowCard
+            ? (results.map(({ name, url }) => (
+              <Card
+                name={name}
+                url={url}
+                key={name}
+                appElement={appElement}
+              />
+            )))
+            : <div className="noCharactersFound">No characters found.</div>}
         </InfiniteScroll>
       </ul>
     </>

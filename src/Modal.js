@@ -10,6 +10,7 @@ class Modal extends Component {
       data: props.fetchResponse,
       onClose: props.onClose,
       isLoading: true,
+      needShowLoader: true,
       homeworld: null,
       species: null,
       films: null,
@@ -23,14 +24,12 @@ class Modal extends Component {
     this.fetchData(data);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.fetchResponse !== prevProps.fetchResponse) {
-      this.fetchData(this.props.fetchResponse);
-    }
-  }
-
   fetchData = (data) => {
     const filmsArray = [];
+    
+    this.setState({
+      needShowLoader: true,
+    });
 
     if (data !== null) {
     fetch(data.homeworld)
@@ -63,13 +62,17 @@ class Modal extends Component {
       this.setState({
         films: filmsArray,
       });
+
       setTimeout(() => {
-        this.setState({isLoading: false})
+        this.setState({
+          needShowLoader: false,
+        })
       }, 2000);
-    }
+
       // setTimeout(() => {
       //   this.setState({isLoading: false})
       // }, 2000);
+    }
   }
 
   closeModal = () => {
@@ -83,7 +86,7 @@ class Modal extends Component {
     return (
       <>
         <Portal>
-        {this.state.isLoading ?
+        {this.state.needShowLoader ?
           <ModalStarWarsPreloader/> : (
           <div className={this.state.styles}>
             <div className="modalWindow">

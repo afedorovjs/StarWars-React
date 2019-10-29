@@ -85,14 +85,15 @@ body {
   padding: 0 40px;
 }
 
-/* .logoWrapper {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  width: 406px;
-  height: 239px;
-  margin: 0;
-} */
+.noCharactersFound {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  font-size: 18px;
+  color: #FFFFFF;
+  margin-top: 100px;
+}
 
 .logoWrapper {
   display: flex;
@@ -100,6 +101,10 @@ body {
   justify-content: center;
   width: 330px;
   height: 180px;
+}
+
+.logoWrapper:hover {
+  cursor: pointer;
 }
 
 .logoStar {
