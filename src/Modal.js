@@ -9,12 +9,10 @@ class Modal extends Component {
     this.state = {
       data: props.fetchResponse,
       onClose: props.onClose,
-      isLoading: true,
       needShowLoader: true,
       homeworld: null,
       species: null,
       films: null,
-      isOpen: props.isOpen,
       styles: 'modalWrapper fadeIn',
     }
   }

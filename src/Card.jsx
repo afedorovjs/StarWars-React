@@ -51,7 +51,6 @@ function Card({ name, url, appElement }) {
       <Modal
         fetchResponse={fetchResponse}
         onClose={closeModal}
-        isOpen={isOpen}
       />
       )}
     </>
