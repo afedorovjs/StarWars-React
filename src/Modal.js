@@ -23,9 +23,16 @@ class Modal extends Component {
     this.fetchData(data);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.fetchResponse !== prevProps.fetchResponse) {
+      this.fetchData(this.props.fetchResponse);
+    }
+  }
+
   fetchData = (data) => {
     const filmsArray = [];
 
+    if (data !== null) {
     fetch(data.homeworld)
       .then(res => res.json())
       .then(result => {
@@ -56,10 +63,13 @@ class Modal extends Component {
       this.setState({
         films: filmsArray,
       });
-
       setTimeout(() => {
         this.setState({isLoading: false})
       }, 2000);
+    }
+      // setTimeout(() => {
+      //   this.setState({isLoading: false})
+      // }, 2000);
   }
 
   closeModal = () => {

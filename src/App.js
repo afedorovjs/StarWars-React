@@ -18,17 +18,12 @@ class App extends Component {
       isLoading: true,
       nextHref: null,
       hasMoreItems: true,
+      isLoadingItems: false,
     };
   }
 
   componentDidMount() {
     this.loadItems();
-    
-    setTimeout(() => {
-      this.setState({
-        isLoading: false,
-      })
-    }, 2000);
   }
 
   loadItems = (nextHref) => {
@@ -47,11 +42,15 @@ class App extends Component {
       })
     }
 
-    fetch(url).then(res => res.json())
+    fetch(url).then((resp) => {
+      console.log('status',resp.status);
+      console.log('statusText', resp.ok);
+      return resp.json()
+    })
       .then((resp) => {
-          const results = this.state.results;
-
-          resp.results.map((person) => results.push(person));
+          const { results } = this.state;
+          
+          resp.results.forEach((person) => results.push(person));
 
           if(resp.next) {
             this.setState({
@@ -63,14 +62,14 @@ class App extends Component {
               hasMoreItems: false,
             });
           }
-        }
-    );
 
-    setTimeout(() => {
-      this.setState({
-        isLoading: false,
-      })
-    }, 2000);
+          setTimeout(() => {
+            this.setState({
+              isLoading: false,
+            })
+          }, 2000)
+        }
+      );
   }
 
   handleSubmit = (event) => {
@@ -108,7 +107,7 @@ class App extends Component {
             searchQuery={this.state.searchQuery}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
-            loadItems={this.loadItems}
+            loadMore={this.loadItems}
             hasMore={this.state.hasMoreItems}
             appElement={appElement}
           />}

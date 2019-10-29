@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Card from './Card';
 
 function CardList({
-  results, searchQuery, handleSubmit, handleChange, loadItems, hasMore, appElement
+  results, searchQuery, handleSubmit, handleChange, loadMore, hasMore, appElement,
 }) {
   return (
     <>
@@ -25,8 +25,9 @@ function CardList({
       <ul className="cardList">
         <InfiniteScroll
           pageStart={0}
-          loadMore={loadItems}
+          loadMore={loadMore}
           hasMore={hasMore}
+          initialLoad={false}
         >
           {results.map(({ name, url }) => (
             <Card

@@ -35,6 +35,7 @@ function Card({ name, url, appElement }) {
   const needRenderModal = (
     (fetchResponse !== null) && isOpen
   );
+
   return (
     <>
       <li>
@@ -47,12 +48,11 @@ function Card({ name, url, appElement }) {
         </div>
       </li>
       {needRenderModal && (
-        <Modal
-          fetchResponse={fetchResponse}
-          onClose={closeModal}
-          fetchData={fetchData}
-          isOpen={isOpen}
-        />
+      <Modal
+        fetchResponse={fetchResponse}
+        onClose={closeModal}
+        isOpen={isOpen}
+      />
       )}
     </>
   );
