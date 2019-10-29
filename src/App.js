@@ -57,9 +57,12 @@ class App extends Component {
           const { results } = this.state;
           const newResults = [...results, ...resp.results];
 
+          this.setState({
+            results: newResults,
+          });
+
           if(resp.next) {
             this.setState({
-              results: newResults,
               nextHref: resp.next,
             });
           } else {
@@ -72,13 +75,13 @@ class App extends Component {
             this.setState({
               isLoading: false,
             });
-          }, 2000)
+          }, 2000);
 
           setTimeout(() => {
             this.setState({
               isLoadingItems: false,
             });
-          }, 100)
+          }, 100);
         }
       );
   }
