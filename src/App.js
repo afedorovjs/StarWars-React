@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import CardList from './CardList';
 import StarWarsPreloader from './StarWarsPreloader';
+import { setCharacters } from './actions/charactersActions';
 
 import './reset.css';
 import './App.css';
@@ -102,7 +104,7 @@ class App extends Component {
         <header className="header">
           <div className="logoWrapper">
             <div className="logoStar"></div>
-            <p className="logoText">CHARACTER ENCYCLOPEDIA</p>
+            <p className="logoText">CHARACTER ENCYCLOPEDIA {this.props.films.films}</p>
             <div className="logoWars"></div>
           </div>
         </header>
@@ -117,6 +119,7 @@ class App extends Component {
             loadMore={this.loadMore}
             hasMore={this.state.hasMoreItems}
             appElement={this.appRef.current}
+            setCharactersAction={this.props.setCharactersAction}
           />}
         </main>
         
@@ -130,4 +133,21 @@ class App extends Component {
   };
 }
 
-export default App;
+const mapStateToProps = (store) => {
+  console.log(store)
+  return {
+    films: store.films,
+    characters: store.characters,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setCharactersAction: data => dispatch(setCharacters(data)),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
