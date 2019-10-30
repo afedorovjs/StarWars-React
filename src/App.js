@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import CardList from './CardList';
 import StarWarsPreloader from './StarWarsPreloader';
 
-import './reset.css';
-import './App.css';
-
 const BASE_PATH = 'https://swapi.co/api/';
 const SEARCH_PATH = '?search=';
 const PEOPLE_PATH = 'people/'
