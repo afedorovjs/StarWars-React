@@ -45,7 +45,7 @@ class Modal extends Component {
             species: result.name,
           });
         })
-      )
+      );
 
       data.films.forEach((film) => {
           fetch(film)
@@ -66,10 +66,6 @@ class Modal extends Component {
           needShowLoader: false,
         })
       }, 2000);
-
-      // setTimeout(() => {
-      //   this.setState({isLoading: false})
-      // }, 2000);
     }
   }
 
