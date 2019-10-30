@@ -16,10 +16,12 @@ class App extends Component {
       searchQuery: '',
       results: [],
       isLoading: true,
-      nextHref: null,
       hasMoreItems: true,
-      isLoadingItems: false,
     };
+
+    this.nextHref = null;
+    this.isLoadingItems = false;
+    this.appRef = React.createRef();
   }
 
   componentDidMount() {
@@ -27,29 +29,28 @@ class App extends Component {
   }
 
   loadMore = () => {
-    if(!this.state.isLoadingItems) {
-        this.loadItems();
+    if(!this.isLoadingItems) {
+      this.loadItems();
     }
-}
+  }
 
-  loadItems = (nextHref) => {
+  loadItems = (searchHref) => {
     let url = (`${BASE_PATH}${PEOPLE_PATH}`);
 
-    this.setState({
-      isLoadingItems: true,
-    })
+    this.isLoadingItems = true;
 
-    if(this.state.nextHref) {
-      url = this.state.nextHref;
+    if(this.nextHref) {
+      url = this.nextHref;
     }
 
-    if(nextHref === null) {
-      url = (`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${this.state.searchQuery}`)
+    if(searchHref === null) {
+      url = (`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${this.state.searchQuery}`);
+
+      this.nextHref = searchHref;
 
       this.setState({
-        nextHref: nextHref,
         hasMoreItems: true,
-      })
+      });
     }
 
     fetch(url).then((resp) => resp.json())
@@ -62,9 +63,7 @@ class App extends Component {
           });
 
           if(resp.next) {
-            this.setState({
-              nextHref: resp.next,
-            });
+            this.nextHref = resp.next;
           } else {
             this.setState({
               hasMoreItems: false,
@@ -77,37 +76,31 @@ class App extends Component {
             });
           }, 2000);
 
-          setTimeout(() => {
-            this.setState({
-              isLoadingItems: false,
-            });
-          }, 100);
+          this.isLoadingItems = false;
         }
       );
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const nextHref = null;
+    const searchHref = null;
 
     this.setState({
       isLoading: true,
       results: [],
     });
-    this.loadItems(nextHref);
+    this.loadItems(searchHref);
   }
 
   handleChange = (event) => {
-    this.setState({searchQuery: event.target.value})
+    this.setState({searchQuery: event.target.value});
   }
 
   render() {
-    const appElement = document.getElementById('app');
-
     return (
-      <div id="app" className="app">
+      <div ref={this.appRef} className="app">
         <header className="header">
-          <div className="logoWrapper" onClick={() => window.location.reload()}>
+          <div className="logoWrapper">
             <div className="logoStar"></div>
             <p className="logoText">CHARACTER ENCYCLOPEDIA</p>
             <div className="logoWars"></div>
@@ -123,7 +116,7 @@ class App extends Component {
             handleChange={this.handleChange}
             loadMore={this.loadMore}
             hasMore={this.state.hasMoreItems}
-            appElement={appElement}
+            appElement={this.appRef.current}
           />}
         </main>
         
