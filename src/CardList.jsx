@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
 import Card from './Card';
 
 function CardList({
-  results, searchQuery, handleSubmit, handleChange, loadMore, hasMore, appElement,
+  results, handleSubmit, setSearch, loadMore, hasMore, appElement, setCharacters,
 }) {
   const needShowCard = (
     results.length !== 0
@@ -19,10 +20,9 @@ function CardList({
       >
         <input
           type="text"
-          value={searchQuery}
           className="input"
           placeholder="Search by name"
-          onChange={handleChange}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <button type="submit" className="searchButton" />
       </form>
@@ -33,7 +33,7 @@ function CardList({
           hasMore={hasMore}
           initialLoad={false}
         >
-          {needShowCard
+          {/* {needShowCard
             ? (results.map(({ name, url }) => (
               <Card
                 name={name}
@@ -42,11 +42,25 @@ function CardList({
                 appElement={appElement}
               />
             )))
-            : <div className="noCharactersFound">No characters found.</div>}
+            : <div className="noCharactersFound">No characters found.</div>} */}
         </InfiniteScroll>
       </ul>
     </>
   );
 }
 
-export default CardList;
+const mapStateToProps = (state) => ({
+  films: state.films,
+  characters: state.characters,
+  search: state.search,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setCharactersAction: searchQuery => dispatch(setCharacters(searchQuery)),
+    setSearchAction: searchQuery => dispatch(setSearchText(searchQuery)),
+  });
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CardList);

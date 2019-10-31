@@ -95,9 +95,9 @@ class App extends Component {
     this.loadItems(searchHref);
   }
 
-  handleChange = (event) => {
-    this.setState({searchQuery: event.target.value});
-  }
+  // handleChange = (event) => {
+  //   this.setState({searchQuery: event.target.value});
+  // }
 
   render() {
     return (
@@ -113,14 +113,15 @@ class App extends Component {
         <main className="cardContainer"> 
           {this.state.isLoading ?
           <StarWarsPreloader/> : <CardList
-            results={this.state.results}
+            results={this.props.characters.characters}
             searchQuery={this.state.searchQuery}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
             loadMore={this.loadMore}
             hasMore={this.state.hasMoreItems}
             appElement={this.appRef.current}
-            setCharactersAction={this.props.setCharactersAction}
+            setCharacters={this.props.setCharactersAction}
+            setSearch={this.props.setSearchAction}
           />}
         </main>
         
@@ -134,12 +135,12 @@ class App extends Component {
   };
 }
 
-const mapStateToProps = (store) => {
-  console.log(store)
+
+
+const mapStateToProps = (state) => {
   return {
-    films: store.films,
-    characters: store.characters,
-    search: store.search,
+    characters: state.characters,
+    search: state.search,
   }
 }
 
@@ -149,6 +150,7 @@ const mapDispatchToProps = dispatch => {
     setSearchAction: searchQuery => dispatch(setSearchText(searchQuery)),
   }
 }
+
 
 export default connect(
   mapStateToProps,
