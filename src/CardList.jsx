@@ -2,19 +2,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
+import { setCharacters } from './actions/charactersActions';
+import { setSearchText } from './actions/searchActions';
 import Card from './Card';
 
 function CardList({
-  results, handleSubmit, setSearch, loadMore, hasMore, appElement, setCharacters,
+  characters, hasMoreItems, appElement, setSearch, setCharactersList, searchQuery, isFetching, nextHref,
 }) {
+
   const needShowCard = (
-    results.length !== 0
+    characters.length !== 0
   );
+
+  const loadMore = () => {
+    if (!isFetching) {
+      setCharactersList(searchQuery);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    setCharactersList(searchQuery);
+  };
 
   return (
     <>
       <form
-        method="GET"
         className="form"
         onSubmit={handleSubmit}
       >
@@ -30,11 +44,11 @@ function CardList({
         <InfiniteScroll
           pageStart={0}
           loadMore={loadMore}
-          hasMore={hasMore}
+          hasMore={hasMoreItems}
           initialLoad={false}
         >
-          {/* {needShowCard
-            ? (results.map(({ name, url }) => (
+          {needShowCard
+            ? (characters.map(({ name, url }) => (
               <Card
                 name={name}
                 url={url}
@@ -42,23 +56,33 @@ function CardList({
                 appElement={appElement}
               />
             )))
-            : <div className="noCharactersFound">No characters found.</div>} */}
+            : <div className="noCharactersFound">No characters found.</div>}
         </InfiniteScroll>
       </ul>
     </>
   );
 }
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-  characters: state.characters,
-  search: state.search,
-});
+const mapStateToProps = (state) => {
+  let { searchQuery } = state.search;
+  let { hasMoreItems } = state.characters;
+  let { characters } = state.characters;
+  let { isFetching } = state.characters;
+  let { nextHref } = state.characters;
+
+  return {
+    characters,
+    searchQuery,
+    hasMoreItems,
+    isFetching,
+    nextHref,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
-    setCharactersAction: searchQuery => dispatch(setCharacters(searchQuery)),
-    setSearchAction: searchQuery => dispatch(setSearchText(searchQuery)),
-  });
+  setCharactersList: (searchQuery) => dispatch(setCharacters(searchQuery)),
+  setSearch: (searchQuery) => dispatch(setSearchText(searchQuery)),
+});
 
 export default connect(
   mapStateToProps,

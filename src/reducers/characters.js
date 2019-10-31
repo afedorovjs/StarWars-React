@@ -10,7 +10,6 @@ const initialState = {
   isFetching: false,
   hasMoreItems: true,
   nextHref: null,
-  searchQuery: '',
   error: '',
 };
 
@@ -19,7 +18,6 @@ export function charactersReducer(state = initialState, action) {
     case GET_CHARACTERS_REQUEST:
       return {
         ...state,
-        searchQuery: action.payload,
         isFetching: true,
         error: '',
       };

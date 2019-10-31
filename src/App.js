@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import CardList from './CardList';
 import StarWarsPreloader from './StarWarsPreloader';
 import { setCharacters } from './actions/charactersActions';
-import { setSearchText } from './actions/searchActions';
 
 import './reset.css';
 import './App.css';
@@ -113,15 +112,7 @@ class App extends Component {
         <main className="cardContainer"> 
           {this.state.isLoading ?
           <StarWarsPreloader/> : <CardList
-            results={this.props.characters.characters}
-            searchQuery={this.state.searchQuery}
-            handleSubmit={this.handleSubmit}
-            handleChange={this.handleChange}
-            loadMore={this.loadMore}
-            hasMore={this.state.hasMoreItems}
             appElement={this.appRef.current}
-            setCharacters={this.props.setCharactersAction}
-            setSearch={this.props.setSearchAction}
           />}
         </main>
         
@@ -140,14 +131,12 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     characters: state.characters,
-    search: state.search,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCharactersAction: searchQuery => dispatch(setCharacters(searchQuery)),
-    setSearchAction: searchQuery => dispatch(setSearchText(searchQuery)),
+    setCharacters: searchQuery => dispatch(setCharacters(searchQuery)),
   }
 }
 

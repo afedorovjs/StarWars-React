@@ -6,11 +6,12 @@ export const GET_CHARACTERS_FAIL = 'GET_CHARACTERS_FAIL';
 const BASE_PATH = 'https://swapi.co/api/';
 const SEARCH_PATH = '?search=';
 const PEOPLE_PATH = 'people/';
+// const newCharacters = [];
 
 function getMoreCharacters(url, dispatch) {
   fetch(url).then((resp) => resp.json())
     .then((resp) => {
-      const newCharacters = [...resp.results];
+      let newCharacters = [...resp.results];
 
       if (resp.next) {
         dispatch({
@@ -18,6 +19,7 @@ function getMoreCharacters(url, dispatch) {
           payload: {
             characters: newCharacters,
             nextHref: resp.next,
+            hasMoreItems: true,
           },
         });
       } else {
@@ -31,6 +33,8 @@ function getMoreCharacters(url, dispatch) {
         });
       }
     });
+
+  // return newCharacters;
 }
 
 export function setCharacters(searchQuery) {
@@ -40,17 +44,15 @@ export function setCharacters(searchQuery) {
     url = (`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${searchQuery}`);
   }
 
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({
       type: GET_CHARACTERS_REQUEST,
-      payload: { searchQuery },
     });
 
-    const characters = getMoreCharacters(url);
+    if (getState().characters.nextHref) {
+      url = getState().characters.nextHref;
+    }
 
-    dispatch({
-      type: GET_CHARACTERS_SUCCESS,
-      payload: characters,
-    });
+    getMoreCharacters(url, dispatch, getState);
   };
 }
