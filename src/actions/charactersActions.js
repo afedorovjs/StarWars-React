@@ -2,22 +2,20 @@
 export const GET_CHARACTERS_REQUEST = 'GET_CHARACTERS_REQUEST';
 export const GET_CHARACTERS_SUCCESS = 'GET_CHARACTERS_SUCCESS';
 export const GET_CHARACTERS_FAIL = 'GET_CHARACTERS_FAIL';
-
+export const DELETE_CHARACTERS = 'DELETE_CHARACTERS';
 const BASE_PATH = 'https://swapi.co/api/';
 const SEARCH_PATH = '?search=';
 const PEOPLE_PATH = 'people/';
-// const newCharacters = [];
+
 
 function getMoreCharacters(url, dispatch) {
   fetch(url).then((resp) => resp.json())
     .then((resp) => {
-      let newCharacters = [...resp.results];
-
       if (resp.next) {
         dispatch({
           type: GET_CHARACTERS_SUCCESS,
           payload: {
-            characters: newCharacters,
+            characters: resp.results,
             nextHref: resp.next,
             hasMoreItems: true,
           },
@@ -26,33 +24,40 @@ function getMoreCharacters(url, dispatch) {
         dispatch({
           type: GET_CHARACTERS_SUCCESS,
           payload: {
-            characters: newCharacters,
+            characters: resp.results,
             nextHref: null,
             hasMoreItems: false,
           },
         });
       }
     });
-
-  // return newCharacters;
 }
 
-export function setCharacters(searchQuery) {
+export const deleteCharacters = () => {
+  return {
+    type: DELETE_CHARACTERS,
+  };
+};
+
+export function setCharacters() {
   let url = (`${BASE_PATH}${PEOPLE_PATH}`);
 
-  if (searchQuery) {
-    url = (`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${searchQuery}`);
-  }
-
   return (dispatch, getState) => {
+    const { searchQuery } = getState().search;
+    const { nextHref } = getState().characters;
+
+    if (searchQuery) {
+      url = (`${BASE_PATH}${PEOPLE_PATH}${SEARCH_PATH}${searchQuery}`);
+    }
+
     dispatch({
       type: GET_CHARACTERS_REQUEST,
     });
 
-    if (getState().characters.nextHref) {
-      url = getState().characters.nextHref;
+    if (nextHref) {
+      url = nextHref;
     }
 
-    getMoreCharacters(url, dispatch, getState);
+    getMoreCharacters(url, dispatch);
   };
 }

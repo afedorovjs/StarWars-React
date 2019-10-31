@@ -3,6 +3,7 @@ import {
   GET_CHARACTERS_REQUEST,
   GET_CHARACTERS_SUCCESS,
   GET_CHARACTERS_FAIL,
+  DELETE_CHARACTERS,
 } from '../actions/charactersActions';
 
 const initialState = {
@@ -25,11 +26,20 @@ export function charactersReducer(state = initialState, action) {
     case GET_CHARACTERS_SUCCESS:
       return {
         ...state,
-        characters: action.payload.characters,
+        characters: [...state.characters, action.payload.characters].flat(),
         nextHref: action.payload.nextHref,
         hasMoreItems: action.payload.hasMoreItems,
         isFetching: false,
         error: '',
+      };
+
+    case DELETE_CHARACTERS:
+      return {
+        ...state,
+        characters: [],
+        nextHref: null,
+        hasMoreItems: true,
+        isFetching: true,
       };
 
     case GET_CHARACTERS_FAIL:

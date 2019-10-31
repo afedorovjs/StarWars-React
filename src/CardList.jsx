@@ -2,12 +2,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
-import { setCharacters } from './actions/charactersActions';
+import { setCharacters, deleteCharacters } from './actions/charactersActions';
 import { setSearchText } from './actions/searchActions';
+import makeDelay from './utils/makeDelay';
 import Card from './Card';
 
 function CardList({
-  characters, hasMoreItems, appElement, setSearch, setCharactersList, searchQuery, isFetching, nextHref,
+  characters, hasMoreItems, appElement, setSearch, setCharactersList, isFetching,
 }) {
 
   const needShowCard = (
@@ -16,14 +17,12 @@ function CardList({
 
   const loadMore = () => {
     if (!isFetching) {
-      setCharactersList(searchQuery);
+      setCharactersList();
     }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    setCharactersList(searchQuery);
   };
 
   return (
@@ -45,7 +44,7 @@ function CardList({
           pageStart={0}
           loadMore={loadMore}
           hasMore={hasMoreItems}
-          initialLoad={false}
+          initialLoad={true}
         >
           {needShowCard
             ? (characters.map(({ name, url }) => (
@@ -79,10 +78,20 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setCharactersList: (searchQuery) => dispatch(setCharacters(searchQuery)),
-  setSearch: (searchQuery) => dispatch(setSearchText(searchQuery)),
-});
+const mapDispatchToProps = (dispatch) => {
+  const searchDebounced = makeDelay(() => dispatch(setCharacters()), 1000);
+
+  return {
+    setCharactersList: () => {
+      dispatch(setCharacters());
+    },
+    setSearch: (searchQuery) => {
+      dispatch(deleteCharacters());
+      dispatch(setSearchText(searchQuery));
+      searchDebounced();
+    },
+  };
+};
 
 export default connect(
   mapStateToProps,
