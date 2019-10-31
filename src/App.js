@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import CardList from './CardList';
 import StarWarsPreloader from './StarWarsPreloader';
 import { setCharacters } from './actions/charactersActions';
+import { setSearchText } from './actions/searchActions';
 
 import './reset.css';
 import './App.css';
 
 const BASE_PATH = 'https://swapi.co/api/';
 const SEARCH_PATH = '?search=';
-const PEOPLE_PATH = 'people/'
+const PEOPLE_PATH = 'people/';
 
 class App extends Component {
   constructor(props) {
@@ -104,7 +105,7 @@ class App extends Component {
         <header className="header">
           <div className="logoWrapper">
             <div className="logoStar"></div>
-            <p className="logoText">CHARACTER ENCYCLOPEDIA {this.props.films.films}</p>
+            <p className="logoText">CHARACTER ENCYCLOPEDIA</p>
             <div className="logoWars"></div>
           </div>
         </header>
@@ -138,12 +139,14 @@ const mapStateToProps = (store) => {
   return {
     films: store.films,
     characters: store.characters,
+    search: store.search,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCharactersAction: data => dispatch(setCharacters(data)),
+    setCharactersAction: searchQuery => dispatch(setCharacters(searchQuery)),
+    setSearchAction: searchQuery => dispatch(setSearchText(searchQuery)),
   }
 }
 
