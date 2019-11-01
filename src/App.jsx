@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import CardList from './CardList';
 import StarWarsPreloader from './StarWarsPreloader';
-import { setCharacters } from './actions/charactersActions';
 
 import './reset.css';
 import './App.css';
@@ -44,20 +42,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { isFetching } = state.characters;
-
-  return {
-    isFetching,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  setCharacters: (searchQuery) => dispatch(setCharacters(searchQuery)),
-});
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+export default App;

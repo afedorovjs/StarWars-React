@@ -8,14 +8,15 @@ function fetchData(url) {
   return fetch(url).then((result) => result.json());
 }
 
-function Card({ name, url, appElement }) {
+function Card({ name, url, films, appElement}) {
   const firstLetter = name[0];
   const [isOpen, setIsOpen] = useState(false);
   const [fetchResponse, setFetchResponse] = useState(null);
 
   const openModal = useCallback(() => {
     setIsOpen(true);
-    appElement.classList.add('blur');
+    // appElement.classList.add('blur');
+
     if (fetchResponse === null) {
       fetchData(url).then(
         (resp) => {
@@ -23,14 +24,14 @@ function Card({ name, url, appElement }) {
         },
       );
     }
-  }, [setFetchResponse, fetchResponse, url, appElement]);
+  }, [setFetchResponse, fetchResponse, url]);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
-    appElement.classList.remove('blur');
-    appElement.classList.add('blurOut');
-    setTimeout(() => appElement.classList.remove('blurOut'), 2100);
-  }, [setIsOpen, appElement]);
+    // appElement.classList.remove('blur');
+    // appElement.classList.add('blurOut');
+    // setTimeout(() => appElement.classList.remove('blurOut'), 2100);
+  }, [setIsOpen]);
 
   const needRenderModal = (
     (fetchResponse !== null) && isOpen

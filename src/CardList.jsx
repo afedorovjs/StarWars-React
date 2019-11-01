@@ -1,15 +1,20 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
 import { setCharacters, deleteCharacters } from './actions/charactersActions';
 import { setSearchText } from './actions/searchActions';
+import { getFilms } from './actions/filmsActions';
 import makeDelay from './utils/makeDelay';
 import Card from './Card';
 
 function CardList({
-  characters, hasMoreItems, appElement, setSearch, setCharactersList, isFetching,
+  characters, hasMoreItems, appElement, setSearch, setCharactersList, isFetching, films, getFilms,
 }) {
+
+  useEffect(() => {
+    getFilms();
+  }, [getFilms]);
 
   const needShowCard = (
     characters.length !== 0
@@ -53,6 +58,7 @@ function CardList({
                 url={url}
                 key={name}
                 appElement={appElement}
+                films={films}
               />
             )))
             : <div className="noCharactersFound">No characters found.</div>}
@@ -63,18 +69,17 @@ function CardList({
 }
 
 const mapStateToProps = (state) => {
-  let { searchQuery } = state.search;
   let { hasMoreItems } = state.characters;
   let { characters } = state.characters;
   let { isFetching } = state.characters;
   let { nextHref } = state.characters;
-
+  let { films } = state.films;
   return {
     characters,
-    searchQuery,
     hasMoreItems,
     isFetching,
     nextHref,
+    films,
   };
 };
 
@@ -89,6 +94,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(deleteCharacters());
       dispatch(setSearchText(searchQuery));
       searchDebounced();
+    },
+    getFilms: () => {
+      dispatch(getFilms());
     },
   };
 };
