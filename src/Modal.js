@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Portal from './Portal';
 import ModalStarWarsPreloader from './ModalStarWarsPreloader';
 import './Modal.css';
@@ -7,59 +8,50 @@ class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.fetchResponse,
-      onClose: props.onClose,
       needShowLoader: true,
       homeworld: null,
       species: null,
-      films: null,
+      films: [],
       styles: 'modalWrapper fadeIn',
     }
   }
 
   componentDidMount() {
-    const { data } = this.state;
-    this.fetchData(data);
+    this.fetchData();
   }
 
-  fetchData = (data) => {
-    const filmsArray = [];
+  fetchData = () => {
+    const filmsUrls = this.props.films;
+    const titles = this.props.titles;
+    const result = [];
     
+    for (let i = 0; i < titles.length; i++) {
+      filmsUrls.forEach((film) => {
+        if (film === titles[i].url) result.push(titles[i].title)
+      })
+    }
+
     this.setState({
       needShowLoader: true,
-    });
+      films: result,
+    })
 
-    if (data !== null) {
-    fetch(data.homeworld)
-      .then(res => res.json())
-      .then(result => {
-        this.setState({
-          homeworld: result.name,
-        });
-      })
-      .then(
-        fetch(data.species)
+    if (this.props.homeworld !== null) {
+      fetch(this.props.homeworld)
         .then(res => res.json())
         .then(result => {
           this.setState({
-            species: result.name,
+            homeworld: result.name,
           });
         })
-      );
 
-      data.films.forEach((film) => {
-          fetch(film)
-            .then(result => result.json())
-            .then((resp) => {
-                filmsArray.push(resp.title);
-              }
-            )
-        }
-      );
-
-      this.setState({
-        films: filmsArray,
-      });
+      fetch(this.props.species)
+      .then(res => res.json())
+      .then(result => {
+        this.setState({
+          species: result.name,
+        });
+      })
 
       setTimeout(() => {
         this.setState({
@@ -73,7 +65,7 @@ class Modal extends Component {
     this.setState({
       styles: 'modalWrapper fadeOut'
     })
-    setTimeout(() => this.state.onClose(), 300);
+    setTimeout(() => this.props.onClose(), 300);
   }
   
   render() {
@@ -86,15 +78,15 @@ class Modal extends Component {
             <div className="modalWindow">
               <button className="modalCloseBtn" onClick={ this.closeModal }/>
               <div className="modalHeader">
-                <div className="modalAvatar">{ this.state.data.name[0] }</div>
-                <p>{ this.state.data.name }</p>
+                <div className="modalAvatar">{ this.props.name[0] }</div>
+                <p>{ this.props.name }</p>
               </div>
               <div className="modalBody">
                 <div className="threeWrapper">
                   <div className="titlesWrapper">
                     <span className="iconDOB"/>
                     <span className="titles">Birth year</span>
-                    <span className="titleBirth">{ this.state.data.birth_year }</span>
+                    <span className="titleBirth">{ this.props.birthYear }</span>
                   </div>
                   <div className="titlesWrapper">
                     <span className="iconSpecies"/>
@@ -104,7 +96,7 @@ class Modal extends Component {
                   <div className="titlesWrapper">
                     <span className="iconGender"/>
                     <span className="titles">Gender</span>
-                    <span className="titleGender">{ this.state.data.gender }</span>
+                    <span className="titleGender">{ this.props.gender }</span>
                   </div>
                 </div>
                 <div className="filmsWrapper">
@@ -116,7 +108,7 @@ class Modal extends Component {
                   <div className="titlesWrapper">
                     <span className="iconFilms"/>
                     <span className="titleFilms">Films</span>
-                    <div className="titleList">{this.state.films.map((film, i) => {return <span key={i}>{ film }</span>})}</div>
+                    <div className="titleList">{this.state.films.map((film, i) => (<span key={i}>{ film }</span>))}</div>
                   </div>
                 </div>
               </div>
@@ -129,4 +121,11 @@ class Modal extends Component {
   }
 }
 
-export default Modal;
+const mapStateToProps = (state) => {
+  let { films } = state.films;
+  return {
+    titles: films,
+  }
+}
+
+export default connect(mapStateToProps)(Modal);

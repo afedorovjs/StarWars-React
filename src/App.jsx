@@ -12,6 +12,10 @@ class App extends Component {
     this.appRef = React.createRef();
   }
 
+  componentDidMount() {
+    const node = this.myRef.current;
+  }
+
   render() {
     return (
       <div ref={this.appRef} className="app">
@@ -27,7 +31,7 @@ class App extends Component {
           {false
             ? <StarWarsPreloader /> : (
               <CardList
-                appElement={this.appRef.current}
+                appElement={node}
               />
             )}
         </main>

@@ -9,7 +9,7 @@ import makeDelay from './utils/makeDelay';
 import Card from './Card';
 
 function CardList({
-  characters, hasMoreItems, appElement, setSearch, setCharactersList, isFetching, films, getFilms,
+  characters, hasMoreItems, appElement, setSearch, setCharactersList, isFetching, getFilms,
 }) {
 
   useEffect(() => {
@@ -52,13 +52,17 @@ function CardList({
           initialLoad={true}
         >
           {needShowCard
-            ? (characters.map(({ name, url }) => (
+            ? (characters.map(({ name, url, films, homeworld, species, gender, birth_year }) => (
               <Card
                 name={name}
                 url={url}
                 key={name}
-                appElement={appElement}
                 films={films}
+                homeworld={homeworld}
+                appElement={appElement}
+                species={species}
+                gender={gender}
+                birthYear={birth_year}
               />
             )))
             : <div className="noCharactersFound">No characters found.</div>}

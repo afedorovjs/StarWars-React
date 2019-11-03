@@ -4,38 +4,21 @@
 import React, { useCallback, useState } from 'react';
 import Modal from './Modal';
 
-function fetchData(url) {
-  return fetch(url).then((result) => result.json());
-}
-
-function Card({ name, url, films, appElement}) {
+function Card({ name, url, films, homeworld, species, gender, birthYear, appElement}) {
   const firstLetter = name[0];
   const [isOpen, setIsOpen] = useState(false);
-  const [fetchResponse, setFetchResponse] = useState(null);
 
   const openModal = useCallback(() => {
     setIsOpen(true);
-    // appElement.classList.add('blur');
-
-    if (fetchResponse === null) {
-      fetchData(url).then(
-        (resp) => {
-          setFetchResponse(resp);
-        },
-      );
-    }
-  }, [setFetchResponse, fetchResponse, url]);
+    appElement.classList.add('blur');
+  }, [setIsOpen]);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
-    // appElement.classList.remove('blur');
-    // appElement.classList.add('blurOut');
-    // setTimeout(() => appElement.classList.remove('blurOut'), 2100);
+    appElement.classList.remove('blur');
+    appElement.classList.add('blurOut');
+    setTimeout(() => appElement.classList.remove('blurOut'), 2100);
   }, [setIsOpen]);
-
-  const needRenderModal = (
-    (fetchResponse !== null) && isOpen
-  );
 
   return (
     <>
@@ -48,10 +31,16 @@ function Card({ name, url, films, appElement}) {
           </div>
         </div>
       </li>
-      {needRenderModal && (
+      {isOpen && (
       <Modal
-        fetchResponse={fetchResponse}
         onClose={closeModal}
+        name={name}
+        films={films}
+        homeworld={homeworld}
+        species={species}
+        gender={gender}
+        birthYear={birthYear}
+        url={url}
       />
       )}
     </>

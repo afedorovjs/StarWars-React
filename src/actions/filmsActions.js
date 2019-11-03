@@ -3,13 +3,13 @@ export const GET_FILMS_FAIL = 'GET_FILMS_FAIL';
 
 const BASE_FILMS_PATH = 'https://swapi.co/api/films/';
 
-let titlesArr = [];
+const titlesArr = [];
 
 function fetchFilms(url) {
   fetch(url).then((resp) => resp.json())
     .then((resp) => {
-      resp.results.forEach((film) => {
-        titlesArr.push([film.title, film.url]);
+      resp.results.forEach(({ title, url }) => {
+        titlesArr.push({ title, url });
       });
     });
 }
