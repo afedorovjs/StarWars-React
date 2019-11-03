@@ -29,7 +29,7 @@ function Card({ name, url, films, homeworld, species, gender, birthYear, appElem
           <div className="avatarWrapper">
             <div className="avatar">{ firstLetter }</div>
             <p className="avatarName">{ name }</p>
-            <p className="avatarSpecies">Species</p>
+            <p className="avatarSpecies">{ gender }</p>
           </div>
         </div>
       </li>
