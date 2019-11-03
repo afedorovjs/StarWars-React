@@ -33,11 +33,11 @@ function getMoreCharacters(url, dispatch) {
     });
 }
 
-export const deleteCharacters = () => {
-  return {
+export const deleteCharacters = () => (
+  {
     type: DELETE_CHARACTERS,
-  };
-};
+  }
+);
 
 export function setCharacters() {
   let url = (`${BASE_PATH}${PEOPLE_PATH}`);

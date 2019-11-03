@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CardList from './CardList';
-import StarWarsPreloader from './StarWarsPreloader';
 
 import './reset.css';
 import './App.css';
@@ -10,10 +9,6 @@ class App extends Component {
     super(props);
 
     this.appRef = React.createRef();
-  }
-
-  componentDidMount() {
-    const node = this.myRef.current;
   }
 
   render() {
@@ -28,12 +23,9 @@ class App extends Component {
         </header>
 
         <main className="cardContainer">
-          {false
-            ? <StarWarsPreloader /> : (
-              <CardList
-                appElement={node}
-              />
-            )}
+          <CardList
+            appElement={this.appRef}
+          />
         </main>
 
         <footer className="footer">

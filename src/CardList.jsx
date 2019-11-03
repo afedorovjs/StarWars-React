@@ -7,11 +7,11 @@ import { setSearchText } from './actions/searchActions';
 import { getFilms } from './actions/filmsActions';
 import makeDelay from './utils/makeDelay';
 import Card from './Card';
+import StarWarsPreloader from './StarWarsPreloader';
 
 function CardList({
   characters, hasMoreItems, appElement, setSearch, setCharactersList, isFetching, getFilms,
 }) {
-
   useEffect(() => {
     getFilms();
   }, [getFilms]);
@@ -49,7 +49,6 @@ function CardList({
           pageStart={0}
           loadMore={loadMore}
           hasMore={hasMoreItems}
-          initialLoad={true}
         >
           {needShowCard
             ? (characters.map(({ name, url, films, homeworld, species, gender, birth_year }) => (
@@ -76,13 +75,11 @@ const mapStateToProps = (state) => {
   let { hasMoreItems } = state.characters;
   let { characters } = state.characters;
   let { isFetching } = state.characters;
-  let { nextHref } = state.characters;
   let { films } = state.films;
   return {
     characters,
     hasMoreItems,
     isFetching,
-    nextHref,
     films,
   };
 };
