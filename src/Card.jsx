@@ -11,11 +11,13 @@ function Card({ name, url, films, homeworld, species, gender, birthYear, appElem
   const openModal = useCallback(() => {
     setIsOpen(true);
     appElement.current.classList.add('blur');
+    document.body.classList.add('scroll-hidden');
   }, [setIsOpen, appElement]);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
     appElement.current.classList.remove('blur');
+    document.body.classList.remove('scroll-hidden');
     appElement.current.classList.add('blurOut');
     setTimeout(() => appElement.current.classList.remove('blurOut'), 2100);
   }, [setIsOpen, appElement]);
@@ -23,7 +25,7 @@ function Card({ name, url, films, homeworld, species, gender, birthYear, appElem
   return (
     <>
       <li>
-        <div className="card fadeIn" onClick={openModal}>
+        <div className="card animated fadeInUp" onClick={openModal}>
           <div className="avatarWrapper">
             <div className="avatar">{ firstLetter }</div>
             <p className="avatarName">{ name }</p>

@@ -12,7 +12,7 @@ class Modal extends Component {
       homeworld: null,
       species: null,
       films: [],
-      styles: 'modalWrapper fadeIn',
+      styles: 'modalWrapper animated fadeIn',
     }
   }
 
@@ -63,7 +63,7 @@ class Modal extends Component {
 
   closeModal = () => {
     this.setState({
-      styles: 'modalWrapper fadeOut'
+      styles: 'modalWrapper animated fadeOut'
     })
     setTimeout(() => this.props.onClose(), 300);
   }

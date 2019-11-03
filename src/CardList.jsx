@@ -7,7 +7,6 @@ import { setSearchText } from './actions/searchActions';
 import { getFilms } from './actions/filmsActions';
 import makeDelay from './utils/makeDelay';
 import Card from './Card';
-import StarWarsPreloader from './StarWarsPreloader';
 
 function CardList({
   characters, hasMoreItems, appElement, setSearch, setCharactersList, isFetching, getFilms,
@@ -64,7 +63,7 @@ function CardList({
                 birthYear={birth_year}
               />
             )))
-            : <div className="noCharactersFound">No characters found.</div>}
+            : <div className="noCharactersFound animated fadeIn">No characters found.</div>}
         </InfiniteScroll>
       </ul>
     </>
