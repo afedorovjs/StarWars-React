@@ -1,28 +1,45 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
+import { setCharacters, deleteCharacters } from './actions/charactersActions';
+import { setSearchText } from './actions/searchActions';
+import { getFilms } from './actions/filmsActions';
+import makeDelay from './utils/makeDelay';
 import Card from './Card';
 
 function CardList({
-  results, searchQuery, handleSubmit, handleChange, loadMore, hasMore, appElement,
+  characters, hasMoreItems, appElement, setSearch, setCharactersList, isFetching, getFilms,
 }) {
+  useEffect(() => {
+    getFilms();
+  }, [getFilms]);
+
   const needShowCard = (
-    results.length !== 0
+    characters.length !== 0
   );
+
+  const loadMore = () => {
+    if (!isFetching) {
+      setCharactersList();
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <>
       <form
-        method="GET"
         className="form"
         onSubmit={handleSubmit}
       >
         <input
           type="text"
-          value={searchQuery}
           className="input"
           placeholder="Search by name"
-          onChange={handleChange}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <button type="submit" className="searchButton" />
       </form>
@@ -30,23 +47,61 @@ function CardList({
         <InfiniteScroll
           pageStart={0}
           loadMore={loadMore}
-          hasMore={hasMore}
-          initialLoad={false}
+          hasMore={hasMoreItems}
         >
           {needShowCard
-            ? (results.map(({ name, url }) => (
+            ? (characters.map(({ name, url, films, homeworld, species, gender, birth_year }) => (
               <Card
                 name={name}
                 url={url}
                 key={name}
+                films={films}
+                homeworld={homeworld}
                 appElement={appElement}
+                species={species}
+                gender={gender}
+                birthYear={birth_year}
               />
             )))
-            : <div className="noCharactersFound">No characters found.</div>}
+            : <div className="noCharactersFound animated fadeIn">No characters found.</div>}
         </InfiniteScroll>
       </ul>
     </>
   );
 }
 
-export default CardList;
+const mapStateToProps = (state) => {
+  let { hasMoreItems } = state.characters;
+  let { characters } = state.characters;
+  let { isFetching } = state.characters;
+  let { films } = state.films;
+  return {
+    characters,
+    hasMoreItems,
+    isFetching,
+    films,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const searchDebounced = makeDelay(() => dispatch(setCharacters()), 1000);
+
+  return {
+    setCharactersList: () => {
+      dispatch(setCharacters());
+    },
+    setSearch: (searchQuery) => {
+      dispatch(deleteCharacters());
+      dispatch(setSearchText(searchQuery));
+      searchDebounced();
+    },
+    getFilms: () => {
+      dispatch(getFilms());
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CardList);
