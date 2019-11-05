@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5586fa4301423f5e40aa9f8f8288172e",
+    "revision": "2bff6fce0762b180aa560d9e598019e5",
     "url": "/StarWars-React/index.html"
   },
   {
-    "revision": "ffb2ad2b2fc36c475a9a",
-    "url": "/StarWars-React/static/css/main.522f38fd.chunk.css"
+    "revision": "6dc2156fb6440664f3e8",
+    "url": "/StarWars-React/static/css/main.8a9ac6e6.chunk.css"
   },
   {
-    "revision": "a866728513f3f91dfe79",
-    "url": "/StarWars-React/static/js/2.d736179e.chunk.js"
+    "revision": "8f62403facf77871f7a5",
+    "url": "/StarWars-React/static/js/2.efbc1a7d.chunk.js"
   },
   {
-    "revision": "ffb2ad2b2fc36c475a9a",
-    "url": "/StarWars-React/static/js/main.eac704be.chunk.js"
+    "revision": "6dc2156fb6440664f3e8",
+    "url": "/StarWars-React/static/js/main.7303e1e2.chunk.js"
   },
   {
     "revision": "4b1e390d856b7ed8969e",
@@ -44,8 +44,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/StarWars-React/static/media/films.fa434cba.svg"
   },
   {
-    "revision": "dfc2e198a45524c4e1c0a8a1ec16a391",
-    "url": "/StarWars-React/static/media/header-background.dfc2e198.jpg"
+    "revision": "374ee9be0dd864a94dccf1393af73834",
+    "url": "/StarWars-React/static/media/header-background.374ee9be.svg"
   },
   {
     "revision": "9354abd515c993187e91f28acb866084",
