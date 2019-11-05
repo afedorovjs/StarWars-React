@@ -25,10 +25,6 @@ function CardList({
     }
   };
 
-  const handleSubmit = (event) => {
-    // event.preventDefault();
-  };
-
   return (
     <>
       <div className="form">
@@ -37,7 +33,6 @@ function CardList({
           className="input"
           placeholder="Search by name"
           onChange={(e) => setSearch(e.target.value)}
-          onSubmit={handleSubmit}
         />
         <button type="submit" className="searchButton" />
       </div>

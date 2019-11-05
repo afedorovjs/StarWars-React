@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Portal from './Portal';
-import ModalStarWarsPreloader from './ModalStarWarsPreloader';
+import ModalPreloader from './ModalPreloader';
 
 import './css/Modal.css';
 
@@ -15,6 +15,8 @@ class Modal extends Component {
       films: [],
       styles: 'modalWrapper animated fadeIn',
     }
+
+    this.avatar = React.createRef();
   }
 
   componentDidMount() {
@@ -57,7 +59,9 @@ class Modal extends Component {
       setTimeout(() => {
         this.setState({
           needShowLoader: false,
-        })
+        });
+
+        this.avatar.current.style.backgroundColor = this.props.color;
       }, 2000);
     }
   }
@@ -65,7 +69,7 @@ class Modal extends Component {
   closeModal = () => {
     this.setState({
       styles: 'modalWrapper animated fadeOut'
-    })
+    });
     setTimeout(() => this.props.onClose(), 300);
   }
 
@@ -74,12 +78,12 @@ class Modal extends Component {
       <>
         <Portal>
         {this.state.needShowLoader ?
-          <ModalStarWarsPreloader/> : (
+          <ModalPreloader/> : (
           <div className={this.state.styles}>
             <div className="modalWindow">
               <button className="modalCloseBtn" onClick={ this.closeModal }/>
               <div className="modalHeader">
-                <div className="modalAvatar">{ this.props.name[0] }</div>
+                <div ref={this.avatar} className="modalAvatar">{ this.props.name[0] }</div>
                 <p>{ this.props.name }</p>
               </div>
               <div className="modalBody">
