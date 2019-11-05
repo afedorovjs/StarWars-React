@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2bff6fce0762b180aa560d9e598019e5",
+    "revision": "0d74ed5ee32d68a0da263fbc18ad8475",
     "url": "/StarWars-React/index.html"
   },
   {
