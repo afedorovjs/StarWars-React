@@ -1,6 +1,3 @@
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/no-named-as-default */
-/* eslint-disable react/prop-types */
 import React, { useCallback, useState, useEffect } from 'react';
 import Modal from './Modal';
 
