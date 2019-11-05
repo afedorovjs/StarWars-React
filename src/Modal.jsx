@@ -13,7 +13,7 @@ class Modal extends Component {
       homeworld: null,
       species: null,
       films: [],
-      styles: 'modalWrapper animated fadeIn',
+      styles: 'modalWrapper fadeIn',
     }
 
     this.avatar = React.createRef();
@@ -68,7 +68,7 @@ class Modal extends Component {
 
   closeModal = () => {
     this.setState({
-      styles: 'modalWrapper animated fadeOut'
+      styles: 'modalWrapper fadeOut'
     });
     setTimeout(() => this.props.onClose(), 300);
   }

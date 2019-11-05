@@ -40,6 +40,7 @@ html {
 body {
   height: 100%;
   background: #333333;
+  overscroll-behavior: none;
 }
 
 .scroll-hidden {
@@ -58,11 +59,22 @@ body {
 }
 
 .blurOut {
-  transition: animation 0.6s;
-  animation: blurOut 0.6s;
+  transition: animation .6s;
+  animation: blurOut .6s;
+  -webkit-animation: blurOut .6s;
 }
 
 @keyframes blurOut {
+  0% {
+    filter: blur(30px);
+  }
+
+  100% {
+    filter: blur(0px);
+  }
+}
+
+@-webkit-keyframes blurOut {
   0% {
     filter: blur(30px);
   }
@@ -320,6 +332,7 @@ ul.cardList > div {
     font-size: 16px;
     line-height: 19px;
     -webkit-appearance: none;
+    -moz-appearance: none;
   }
 
   .searchButton {
@@ -328,6 +341,7 @@ ul.cardList > div {
     height: 25px;
     background-size: cover;
     -webkit-appearance: none;
+    -moz-appearance: none;
   }
 
   .cardContainer {
