@@ -11,25 +11,14 @@ const PEOPLE_PATH = 'people/';
 function getMoreCharacters(url, dispatch) {
   fetch(url).then((resp) => resp.json())
     .then((resp) => {
-      if (resp.next) {
-        dispatch({
-          type: GET_CHARACTERS_SUCCESS,
-          payload: {
-            characters: resp.results,
-            nextHref: resp.next,
-            hasMoreItems: true,
-          },
-        });
-      } else {
-        dispatch({
-          type: GET_CHARACTERS_SUCCESS,
-          payload: {
-            characters: resp.results,
-            nextHref: null,
-            hasMoreItems: false,
-          },
-        });
-      }
+      dispatch({
+        type: GET_CHARACTERS_SUCCESS,
+        payload: {
+          characters: resp.results,
+          nextHref: resp.next || null,
+          hasMoreItems: Boolean(resp.next),
+        },
+      });
     });
 }
 

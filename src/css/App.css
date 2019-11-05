@@ -3,26 +3,26 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: url('../src/fonts/roboto-v20-latin-regular.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/roboto-v20-latin-regular.eot'); /* IE9 Compat Modes */
   src: local('Roboto'), local('Roboto-Regular'),
-       url('../src/fonts/roboto-v20-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('../src/fonts/roboto-v20-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../src/fonts/roboto-v20-latin-regular.woff') format('woff'), /* Modern Browsers */
-       url('../src/fonts/roboto-v20-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('../src/fonts/roboto-v20-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+       url('../fonts/roboto-v20-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/roboto-v20-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/roboto-v20-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/roboto-v20-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/roboto-v20-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
 }
 /* roboto-500 - latin */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
-  src: url('../src/fonts/roboto-v20-latin-500.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/roboto-v20-latin-500.eot'); /* IE9 Compat Modes */
   src: local('Roboto Medium'), local('Roboto-Medium'),
-       url('../src/fonts/roboto-v20-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('../src/fonts/roboto-v20-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../src/fonts/roboto-v20-latin-500.woff') format('woff'), /* Modern Browsers */
-       url('../src/fonts/roboto-v20-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('../src/fonts/roboto-v20-latin-500.svg#Roboto') format('svg'); /* Legacy iOS */
+       url('../fonts/roboto-v20-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/roboto-v20-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/roboto-v20-latin-500.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/roboto-v20-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/roboto-v20-latin-500.svg#Roboto') format('svg'); /* Legacy iOS */
 }
 
 html {
@@ -73,7 +73,7 @@ body {
   justify-content: center;
   align-items: center;
   flex: 0 0 auto;
-  background-image: url(../src/img/header-background.jpg);
+  background-image: url(../img/header-background.svg);
   height: 35vh;
   min-height: 240px;
   background-size: cover;
@@ -109,13 +109,13 @@ body {
 
 .logoStar {
   height: 80px;
-  background-image: url(../src/img/star.svg);
+  background-image: url(../img/star.svg);
   background-size: cover;
 }
 
 .logoWars {
   height: 80px;
-  background-image: url(../src/img/wars.svg);
+  background-image: url(../img/wars.svg);
   background-size: cover;
 }
 
@@ -130,18 +130,48 @@ body {
   color: #FFFFFF;
 }
 
+.form {
+  position: relative;
+  margin: 50px 0px 30px 0px;
+}
+
 .input {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
   width: 600px;
   height: 40px;
   border-width: 0 0 1px;
   border-color: #808080;
-  background: transparent;
+  border-style: none;
+  border-bottom-style: solid;
+  background: none;
   outline: none;
   font-size: 18px;
+  padding: 0;
 }
 
 .input:enabled {
   color: white;
+}
+
+.searchButton {
+  position: absolute;
+  right: 0px;
+  bottom: 4px;
+  background-image: url(../img/ic_search_24px.svg);
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+.searchButton:hover {
+  cursor: pointer;
 }
 
 .footer {
@@ -193,10 +223,6 @@ ul.cardList > div {
   cursor: pointer;
 }
 
-.form {
-  margin: 50px 0px 30px 0px;
-}
-
 .avatar {
   font-family: 'Roboto';
   display: flex;
@@ -236,21 +262,6 @@ ul.cardList > div {
   color: #808080;
 }
 
-.searchButton {
-  background-image: url(./img/ic_search_24px.svg);
-  width: 32px;
-  height: 32px;
-  background-color: transparent;
-  border: none;
-  outline: none;
-}
-
-.searchButton:hover {
-  cursor: pointer;
-}
-
-
-
 @media screen and (max-width: 767px) {
   .header {
     width: 100%;
@@ -281,16 +292,19 @@ ul.cardList > div {
   }
 
   .input {
-    width: 252px;
+    width: 272px;
     height: 40px;
     font-size: 16px;
     line-height: 19px;
+    -webkit-appearance: none;
   }
 
   .searchButton {
-    width: 19px;
-    height: 19px;
+    bottom: 7.5px;
+    width: 25px;
+    height: 25px;
     background-size: cover;
+    -webkit-appearance: none;
   }
 
   .cardContainer {

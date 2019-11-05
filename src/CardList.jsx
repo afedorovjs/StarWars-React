@@ -26,23 +26,21 @@ function CardList({
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   return (
     <>
-      <form
-        className="form"
-        onSubmit={handleSubmit}
-      >
+      <div className="form">
         <input
           type="text"
           className="input"
           placeholder="Search by name"
           onChange={(e) => setSearch(e.target.value)}
+          onSubmit={handleSubmit}
         />
         <button type="submit" className="searchButton" />
-      </form>
+      </div>
       <ul className="cardList">
         <InfiniteScroll
           pageStart={0}

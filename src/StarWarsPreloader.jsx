@@ -1,6 +1,7 @@
 import React from 'react';
-import './StarWarsPreloader.css';
 import falcon from './img/falcon.svg';
+
+import './css/StarWarsPreloader.css';
 
 export default function StarWarsPreloader() {
   return (

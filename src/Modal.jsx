@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Portal from './Portal';
 import ModalStarWarsPreloader from './ModalStarWarsPreloader';
-import './Modal.css';
+
+import './css/Modal.css';
 
 class Modal extends Component {
   constructor(props) {
@@ -46,12 +47,12 @@ class Modal extends Component {
         })
 
       fetch(this.props.species)
-      .then(res => res.json())
-      .then(result => {
-        this.setState({
-          species: result.name,
-        });
-      })
+        .then(res => res.json())
+        .then(result => {
+          this.setState({
+            species: result.name,
+          });
+        })
 
       setTimeout(() => {
         this.setState({
@@ -67,7 +68,7 @@ class Modal extends Component {
     })
     setTimeout(() => this.props.onClose(), 300);
   }
-  
+
   render() {
     return (
       <>

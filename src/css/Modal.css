@@ -68,7 +68,7 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  background-image: url(./img/close-btn.svg);
+  background-image: url(../img/close-btn.svg);
   width: 24px;
   height: 24px;
   background-color: transparent;
@@ -98,35 +98,35 @@
 }
 
 .iconDOB {
-  background-image: url(./img/DOB.svg);
+  background-image: url(../img/DOB.svg);
   background-color: transparent;
   width: 24px;
   height: 24px;
 }
 
 .iconSpecies {
-  background-image: url(./img/Species.svg);
+  background-image: url(../img/Species.svg);
   background-color: transparent;
   width: 24px;
   height: 24px;
 }
 
 .iconGender {
-  background-image: url(./img/Gender.svg);
+  background-image: url(../img/Gender.svg);
   background-color: transparent;
   width: 24px;
   height: 24px;
 }
 
 .iconHomeworld {
-  background-image: url(./img/home-world.svg);
+  background-image: url(../img/home-world.svg);
   background-color: transparent;
   width: 24px;
   height: 24px;
 }
 
 .iconFilms {
-  background-image: url(./img/films.svg);
+  background-image: url(../img/films.svg);
   background-color: transparent;
   width: 24px;
   height: 24px;
@@ -303,6 +303,4 @@
   .iconFilms {
     padding-right: 16px;
   }
-
-  
 }
