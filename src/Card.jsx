@@ -19,13 +19,13 @@ function Card({ name, url, films, homeworld, species, gender, birthYear, appElem
     appElement.current.classList.remove('blur');
     document.body.classList.remove('scroll-hidden');
     appElement.current.classList.add('blurOut');
-    setTimeout(() => appElement.current.classList.remove('blurOut'), 2100);
+    setTimeout(() => appElement.current.classList.remove('blurOut'), 1000);
   }, [setIsOpen, appElement]);
 
   return (
     <>
       <li>
-        <div className="card animated fadeInUp" onClick={openModal}>
+        <div className="card fadeInUp" onClick={openModal}>
           <div className="avatarWrapper">
             <div className="avatar">{ firstLetter }</div>
             <p className="avatarName">{ name }</p>

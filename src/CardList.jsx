@@ -61,7 +61,7 @@ function CardList({
                 birthYear={birth_year}
               />
             )))
-            : <div className="noCharactersFound animated fadeIn">No characters found.</div>}
+            : <div className="noCharactersFound fadeIn">No characters found.</div>}
         </InfiniteScroll>
       </ul>
     </>

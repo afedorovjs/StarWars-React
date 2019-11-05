@@ -50,11 +50,12 @@ body {
 }
 
 .blur {
-  transition: all 0.6s;
+  transition: filter 1s;
   filter: blur(30px);
 }
 
 .blurOut {
+  transition: animation 0.6s;
   animation: blurOut 0.6s;
 }
 
@@ -208,8 +209,7 @@ ul.cardList > div {
   height: 320px;
   background: #1A1A1A;
   border-radius: 8px;
-  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.4);
-  filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.4));
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.6);
   margin: 20px auto;
   font-weight: bold;
   font-size: 18px;
@@ -218,8 +218,7 @@ ul.cardList > div {
 }
 
 .card:hover {
-  filter: drop-shadow(0px 10px 25px rgba(37, 136, 167, 0.38));
-  box-shadow: 0px 10px 20px rgba(37, 136, 167, 0.38);
+  box-shadow: 0px 5px 40px rgba(37, 137, 167, 0.897);
   cursor: pointer;
 }
 
@@ -262,7 +261,41 @@ ul.cardList > div {
   color: #808080;
 }
 
+.fadeInUp {
+  animation: fadeInUp 1s;
+  -webkit-animation: fadeInUp 1s;
+  -moz-animation: fadeInUp 1s;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
 @media screen and (max-width: 767px) {
+  html {
+    touch-action: manipulation;
+  }
+  
   .header {
     width: 100%;
     height: 240px;

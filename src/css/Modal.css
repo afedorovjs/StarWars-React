@@ -199,16 +199,6 @@
   align-self: flex-start;
 }
 
-.modalWrapper.animated.fadeOut {
-  animation-duration: 0.3s;
-  animation-delay: 0s;
-}
-
-.modalWrapper.animated.fadeIn {
-  animation-duration: 0.6s;
-  animation-delay: 0s;
-}
-
 @media screen and (max-width: 767px) {
   .modalWrapper {
     width: 100%;
@@ -217,7 +207,6 @@
     box-shadow: none;
     filter: none;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
 
