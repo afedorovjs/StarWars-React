@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -7,21 +9,13 @@ import { getFilms } from './actions/filmsActions';
 import makeDelay from './utils/makeDelay';
 import Card from './Card';
 
-function CardList({
-  characters, hasMoreItems, appElement, setSearch, setCharactersList, isFetching, getFilms,
-}) {
-  useEffect(() => {
-    getFilms();
-  }, [getFilms]);
+const CardList = ({ characters, hasMoreItems, appRef, setSearch, setCharactersList, isFetching, getFilms, }) => {
+  useEffect(() => getFilms(), [getFilms]);
 
-  const needShowCard = (
-    characters.length !== 0
-  );
+  const needShowCard = characters.length !== 0;
 
   const loadMore = () => {
-    if (!isFetching) {
-      setCharactersList();
-    }
+    if (!isFetching) setCharactersList();
   };
 
   return (
@@ -35,6 +29,7 @@ function CardList({
         />
         <button type="submit" className="searchButton" />
       </div>
+
       <ul className="cardList">
         <InfiniteScroll
           pageStart={0}
@@ -49,7 +44,7 @@ function CardList({
                 key={name}
                 films={films}
                 homeworld={homeworld}
-                appElement={appElement}
+                appRef={appRef}
                 species={species}
                 gender={gender}
                 birthYear={birth_year}
@@ -63,10 +58,9 @@ function CardList({
 }
 
 const mapStateToProps = (state) => {
-  let { hasMoreItems } = state.characters;
-  let { characters } = state.characters;
-  let { isFetching } = state.characters;
-  let { films } = state.films;
+  const { hasMoreItems, characters, isFetching } = state.characters;
+  const { films } = state.films;
+
   return {
     characters,
     hasMoreItems,
@@ -76,7 +70,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  const searchDebounced = makeDelay(() => dispatch(setCharacters()), 1000);
+  const debouncedSearch = makeDelay(() => dispatch(setCharacters()), 1000);
 
   return {
     setCharactersList: () => {
@@ -85,7 +79,7 @@ const mapDispatchToProps = (dispatch) => {
     setSearch: (searchQuery) => {
       dispatch(deleteCharacters());
       dispatch(setSearchText(searchQuery));
-      searchDebounced();
+      debouncedSearch();
     },
     getFilms: () => {
       dispatch(getFilms());

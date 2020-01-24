@@ -1,1 +1,1 @@
-### `You can view the app by clicking this` [**Link**](https://nsgowest.github.io/StarWars-React/)
+### `You can view the app by clicking this` [**Link**](https://afedorovjs.github.io/StarWars-React/)

@@ -23,7 +23,7 @@ class App extends Component {
 
         <main className="cardContainer">
           <CardList
-            appElement={this.appRef}
+            appRef={this.appRef}
           />
         </main>
 

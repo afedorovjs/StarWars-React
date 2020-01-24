@@ -8,6 +8,7 @@ import './css/Modal.css';
 class Modal extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       needShowLoader: true,
       homeworld: null,
@@ -16,7 +17,7 @@ class Modal extends Component {
       styles: 'modalWrapper fadeIn',
     }
 
-    this.avatar = React.createRef();
+    this.avatarRef = React.createRef();
   }
 
   componentDidMount() {
@@ -24,12 +25,12 @@ class Modal extends Component {
   }
 
   fetchData = () => {
-    const filmsUrls = this.props.films;
+    const filmUrls = this.props.films;
     const titles = this.props.titles;
     const result = [];
     
     for (let i = 0; i < titles.length; i++) {
-      filmsUrls.forEach((film) => {
+      filmUrls.forEach((film) => {
         if (film === titles[i].url) result.push(titles[i].title)
       })
     }
@@ -39,7 +40,7 @@ class Modal extends Component {
       films: result,
     })
 
-    if (this.props.homeworld !== null) {
+    if (this.props.homeworld && this.props.species) {
       fetch(this.props.homeworld)
         .then(res => res.json())
         .then(result => {
@@ -55,15 +56,15 @@ class Modal extends Component {
             species: result.name,
           });
         })
-
-      setTimeout(() => {
-        this.setState({
-          needShowLoader: false,
-        });
-
-        this.avatar.current.style.backgroundColor = this.props.color;
-      }, 2000);
     }
+
+    setTimeout(() => {
+      this.setState({
+        needShowLoader: false,
+      });
+
+      this.avatarRef.current.style.backgroundColor = this.props.color;
+    }, 2000);
   }
 
   closeModal = () => {
@@ -75,59 +76,58 @@ class Modal extends Component {
 
   render() {
     return (
-      <>
-        <Portal>
-        {this.state.needShowLoader ?
-          <ModalPreloader/> : (
-          <div className={this.state.styles}>
-            <div className="modalWindow">
-              <button className="modalCloseBtn" onClick={ this.closeModal }/>
-              <div className="modalHeader">
-                <div ref={this.avatar} className="modalAvatar">{ this.props.name[0] }</div>
-                <p>{ this.props.name }</p>
-              </div>
-              <div className="modalBody">
-                <div className="threeWrapper">
-                  <div className="titlesWrapper">
-                    <span className="iconDOB"/>
-                    <span className="titles">Birth year</span>
-                    <span className="titleBirth">{ this.props.birthYear }</span>
-                  </div>
-                  <div className="titlesWrapper">
-                    <span className="iconSpecies"/>
-                    <span className="titles">Species</span>
-                    <span className="titleSpecies">{ this.state.species }</span>
-                  </div>
-                  <div className="titlesWrapper">
-                    <span className="iconGender"/>
-                    <span className="titles">Gender</span>
-                    <span className="titleGender">{ this.props.gender }</span>
-                  </div>
+      <Portal>
+        {this.state.needShowLoader
+          ? <ModalPreloader/>
+          : (
+            <div className={this.state.styles}>
+              <div className="modalWindow">
+                <button className="modalCloseBtn" onClick={ this.closeModal }/>
+                <div className="modalHeader">
+                  <div ref={this.avatarRef} className="modalAvatar">{ this.props.name[0] }</div>
+                  <p>{ this.props.name }</p>
                 </div>
-                <div className="filmsWrapper">
-                  <div className="titlesWrapper">
-                    <span className="iconHomeworld"/>
-                    <span className="titles">Homeworld</span>
-                    <span className="titleHomeworld">{ this.state.homeworld }</span>
+                <div className="modalBody">
+                  <div className="threeWrapper">
+                    <div className="titlesWrapper">
+                      <span className="iconDOB"/>
+                      <span className="titles">Birth year</span>
+                      <span className="titleBirth">{ this.props.birthYear }</span>
+                    </div>
+                    <div className="titlesWrapper">
+                      <span className="iconSpecies"/>
+                      <span className="titles">Species</span>
+                      <span className="titleSpecies">{ this.state.species }</span>
+                    </div>
+                    <div className="titlesWrapper">
+                      <span className="iconGender"/>
+                      <span className="titles">Gender</span>
+                      <span className="titleGender">{ this.props.gender }</span>
+                    </div>
                   </div>
-                  <div className="titlesWrapper">
-                    <span className="iconFilms"/>
-                    <span className="titleFilms">Films</span>
-                    <div className="titleList">{this.state.films.map((film, i) => (<span key={i}>{ film }</span>))}</div>
+                  <div className="filmsWrapper">
+                    <div className="titlesWrapper">
+                      <span className="iconHomeworld"/>
+                      <span className="titles">Homeworld</span>
+                      <span className="titleHomeworld">{ this.state.homeworld }</span>
+                    </div>
+                    <div className="titlesWrapper">
+                      <span className="iconFilms"/>
+                      <span className="titleFilms">Films</span>
+                      <div className="titleList">{this.state.films.map((film, i) => (<span key={i}>{ film }</span>))}</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
         )}
-        </Portal>
-      </>
+      </Portal>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  let { films } = state.films;
+  const { films } = state.films;
   return {
     titles: films,
   }
