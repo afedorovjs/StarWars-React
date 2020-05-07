@@ -1,7 +1,7 @@
 export const GET_FILMS_SUCCESS = 'GET_FILMS_SUCCESS';
 export const GET_FILMS_FAIL = 'GET_FILMS_FAIL';
 
-const BASE_FILMS_PATH = 'https://swapi.co/api/films/';
+const BASE_FILMS_PATH = 'https://swapi.dev/api/films/';
 
 const titlesArr = [];
 
