@@ -15,7 +15,9 @@ const CardList = ({ characters, hasMoreItems, appRef, setSearch, setCharactersLi
   const needShowCard = characters.length !== 0;
 
   const loadMore = () => {
-    if (!isFetching) setCharactersList();
+    if (!isFetching) {
+      setCharactersList();
+    }
   };
 
   return (
@@ -35,6 +37,7 @@ const CardList = ({ characters, hasMoreItems, appRef, setSearch, setCharactersLi
           pageStart={0}
           loadMore={loadMore}
           hasMore={hasMoreItems}
+          scrollThreshold='100px'
         >
           {needShowCard
             ? (characters.map(({ name, url, films, homeworld, species, gender, birth_year }) => (

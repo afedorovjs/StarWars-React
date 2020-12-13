@@ -3,10 +3,9 @@ export const GET_CHARACTERS_REQUEST = 'GET_CHARACTERS_REQUEST';
 export const GET_CHARACTERS_SUCCESS = 'GET_CHARACTERS_SUCCESS';
 export const GET_CHARACTERS_FAIL = 'GET_CHARACTERS_FAIL';
 export const DELETE_CHARACTERS = 'DELETE_CHARACTERS';
-const BASE_PATH = 'https://swapi.dev/api/';
+const BASE_PATH = 'http://swapi.dev/api/';
 const SEARCH_PATH = '?search=';
 const PEOPLE_PATH = 'people/';
-
 
 function getMoreCharacters(url, dispatch) {
   fetch(url).then((resp) => resp.json())
